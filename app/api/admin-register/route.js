@@ -23,7 +23,17 @@ export async function POST(request) {
     try{
         const payload= await(request.json());
         await mongoose.connect(connectionStr);
-
+        if(payload.access_counter){
+           let info=await Admin.find({access_counter:payload.access_counter});
+           let count=info.length;
+           if(count>0){
+               let message="Already exist an employee for this counter"
+               return NextResponse.json({result,message,success:false});
+           }
+        }else{
+            delete payload.access_counter;
+        }
+        return NextResponse.json(payload);
         if (!payload.name || !payload.email || !payload.password) {
             return NextResponse.json({msg: 'invalid fields'}, {status: 400});
         }
