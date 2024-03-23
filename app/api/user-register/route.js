@@ -38,6 +38,7 @@ export async function POST(request) {
             return NextResponse.json({msg: 'user is already present','success':false}, {status: 409});
         } 
         payload.name= await payload.first_name + ' ' + payload.last_name;
+        payload.img=null;
         if (payload.password) {
             const hashPassword = await bcrypt.hash(payload.password, 10);
             payload.password = hashPassword;
