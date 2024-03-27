@@ -13,7 +13,6 @@ export async function GET() {
     }
     return NextResponse.json(result);
 }
-
 export async function POST(request) {
     let result = [];
     try {
