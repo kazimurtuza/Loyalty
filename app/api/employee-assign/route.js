@@ -33,14 +33,14 @@ export async function POST(request) {
         await mongoose.connect(connectionStr);
         //already counter available check
         const filter2={"_id":payload.counter,status:0};
-        let result2=await Counter.find(filter2);
+        let result2=await Counter.countDocuments(filter2);
 
-        if(result2)
+        if(result2>0)
         {
             return NextResponse.json({msg:"This Counter is not available now",success:false});
         }
-        payload.assign_date_time=new Date();
-
+        payload.assign_date_time = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
+        payload.assign_out_date_time = null;
 
         let employeeAssign =new EmployeeAssignCounter(payload);
         const filter={"_id":payload.counter};
