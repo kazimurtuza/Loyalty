@@ -14,6 +14,7 @@ export default function Form() {
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
                     <form action='#' className='default-form'>
+
                         <div className='form-row col-2'>
                             <div className='from-field'>
                                 <label>Field Name</label>
