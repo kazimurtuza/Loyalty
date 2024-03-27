@@ -13,7 +13,7 @@ export default function NavGroup({children, title, href, icon, cssClass}) {
             setActive(true);
         }
       }, [pathname]);
-
+ 
     function clickHandelr(e){
         e.preventDefault();
         setActive(!isActive);

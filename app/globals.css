@@ -1274,70 +1274,25 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /***********************************
-*           Popup Style
+*           Form Style
 /***********************************/
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  width: 100%;
-  background-color: #00000052;
-  z-index: 9999;
-  display: none !important;
+
+.form-row{
+  display: grid;
+  margin-bottom: 30px;
 }
 
-.popup.popup-active {
-  display: flex !important;
+.form-row.col-3{
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
 }
 
-.popup__inner {
-  width: 532px;
-  max-width: 90%;
-  background-color: var(--light-color);
-  border-radius: 3px;
-  position: relative;
+.form-row.col-2{
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
 }
 
-.popup__close {
-  position: absolute;
-  top: 16px;
-  right: 24px;
-  cursor: pointer;
-}
-
-.popup__close svg path {
-  transition: 0.3s;
-}
-
-.popup__close:hover svg path {
-  stroke: #4d6486;
-}
-
-.popup__inner__header {
-  padding: 16px 24px;
-  background-color: var(--primary-color);
-}
-
-.popup__inner__title {
-  font-size: 16px;
-  font-family: var(--global-font);
-  font-weight: 500;
-  line-height: 1.2;
-  margin: 0;
-  color: var(--light-color);
-}
-
-.popup__inner__body {
-  padding: 32px;
-}
-
-.popup .form__field:not(:last-child) {
-  margin-bottom: 20px;
-}
-
-.popup .form__field .label {
+.from-field label {
   font-size: 14px;
   line-height: 1.2;
   font-weight: 400;
@@ -1347,8 +1302,35 @@ input[type="number"]::-webkit-outer-spin-button {
   color: var(--primary-color);
 }
 
-.popup .form__field .input,
-.popup .form__field .select {
+.from-field .from-element-textarea{
+  padding: 9px 12px;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 400;
+  font-family: var(--global-font);
+  color: #575757;
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #d3dbdf;
+  outline-color: var(--primary-color-alt);
+  resize: vertical;
+}
+
+.from-field .from-element-file{
+  padding: 9px 12px;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 400;
+  font-family: var(--global-font);
+  color: #575757;
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #d3dbdf;
+  outline-color: var(--primary-color-alt);
+}
+
+.from-field .from-element-text,
+.from-field .from-element-select {
   padding: 11px 12px;
   font-size: 14px;
   line-height: 1.2;
@@ -1361,19 +1343,18 @@ input[type="number"]::-webkit-outer-spin-button {
   outline-color: var(--primary-color-alt);
 }
 
-.popup__submit {
-  margin-top: 20px;
-  text-align: end;
+.form-submit {
+  margin-top: 35px;
 }
 
-.form__submit {
+.form-submit button {
   border: none;
   outline: none;
   border-radius: 4px;
   background-color: var(--primary-color);
   color: var(--light-color);
   text-align: center;
-  padding: 8px 15px;
+  padding: 15px 35px;
   font-size: 14px;
   line-height: 1.2;
   font-weight: 600;
@@ -1381,6 +1362,6 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: 0.3s;
 }
 
-.form__submit:hover {
+.form-submit button:hover {
   background-color: #4d6486;
 }

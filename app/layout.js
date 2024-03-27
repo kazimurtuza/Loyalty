@@ -1,7 +1,7 @@
+
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./partial/header/header";
-import Sidebar from "./partial/sidebar/sidebar";
+import Main from "./layout/main";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +14,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang='en'>
             <body className={inter.className}>
-                <Header />
-
-                <section className='dashboard-body account-body'>
-                    <Sidebar />
-                    {children}
-                </section>
+            <Main>{children}</Main>
             </body>
         </html>
     );
