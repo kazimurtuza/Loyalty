@@ -31,6 +31,17 @@ export async function POST(request) {
     try{
         const payload= await(request.json());
         await mongoose.connect(connectionStr);
+        //already counter available check
+        const filter2={"_id":payload.counter,status:0};
+        let result2=await Counter.find(filter2);
+
+        if(result2)
+        {
+            return NextResponse.json({msg:"This Counter is not available now",success:false});
+        }
+        payload.assign_date_time=new Date();
+
+
         let employeeAssign =new EmployeeAssignCounter(payload);
         const filter={"_id":payload.counter};
         payload.status=0;
@@ -40,7 +51,7 @@ export async function POST(request) {
     }
     catch(error)
     {
-        result=error;
+        result=error.message;
     }
     return NextResponse.json({result,success:true});
 }
