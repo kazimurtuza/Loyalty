@@ -21,14 +21,8 @@ export async function GET(request,content) {
         orderInfo =await Order.find({user: userId}).populate({
             path:'counter',
             model:'counters'
-        }).sort({created_at:-1}); 
-        earnPointInfo =await EarnPoint.find({user: userId}).populate({
-            path:'order',
-            model:'Order'
-        }).sort({created_at:-1});
-        const totalCost = await Order.countDocuments({user: userId});
-        const userDetails = await User.findOne({_id: userId});
-        return NextResponse.json({orderInfo,earnPointInfo,totalCost,userDetails,msg,success:true});
+        }).sort({created_at:-1});   
+        return NextResponse.json({orderInfo,msg,success:true});
 
         
     }

@@ -7,6 +7,7 @@ import { User } from "@/lib/model/users";
 import { Order } from "@/lib/model/order";
 import { PaymentSetting } from "@/lib/model/payementSetting";
 import { EarnPoint } from "@/lib/model/earnPoint";
+import { Notification } from "@/lib/model/notification";
 
 
 export async function POST(request) {
@@ -27,6 +28,7 @@ export async function POST(request) {
 
         let paymentSetting=await PaymentSetting.findOne();
         payload.amount=paymentSetting.money_to_points*payload.total_amount;
+        payload.order=order._id;
         let earnPoint =new EarnPoint(payload);   
         earnPointInfo=await earnPoint.save();
 
@@ -34,6 +36,11 @@ export async function POST(request) {
         userInfo.balance=userInfo.balance-payload.total_amount;
         userInfo.points = parseFloat(userInfo.points) + parseFloat(earnPointInfo.amount);
         let userDetails=await userInfo.save();
+
+        payload.message="Payment Successfully recived";
+
+        let notification =new Notification(payload);
+        await notification.save();
 
         msg="Payment Successfully recived";
         return NextResponse.json({orderInfo,userDetails,earnPointInfo,msg,success:true});
