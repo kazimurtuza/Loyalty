@@ -9,12 +9,19 @@ export async function PUT(request,content) {
 
     let result=[];
     try{
-        const assignId=content.params.id;
+        const employeeId=content.params.id;
         const payload= await(request.json());
         await mongoose.connect(connectionStr);
-        const filter2={"_id":assignId};
-        payload.status=payload.assign_status;
-        payload.assign_out_date_time = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
+        const filter2={'employee':employeeId,'status':1};
+        //payload.status=payload.assign_status;
+        payload.status=0;
+        // payload.assign_out_date_time = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
+       
+        //payload.assign_out_date_time = Date.now;
+        const currentDate = new Date();
+
+        // Format the date
+        payload.assign_out_date_time = currentDate.toLocaleDateString();
         await mongoose.connect(connectionStr);
         result=await EmployeeAssignCounter.findOneAndUpdate(filter2,payload);
         const filter={"_id":result.counter};
