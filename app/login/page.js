@@ -1,5 +1,11 @@
+
 import "./style.css";
-export default function Login() {
+
+export  default async function Login() {
+  const post = await fetch('http://loyaltypaypoints.com:2023/api/counter/660116169c2673a181361372');
+  const result = await post.json();
+  console.log(result);
+
     return (
       <div className="user-page login-page">
       <div className="form">
