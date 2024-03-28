@@ -1,13 +1,15 @@
 "use client";
-
+import fetchWithAuth from "@/fetchWithAuth";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import "./style.css";
-
 export default function Login() {
     const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
     // const post = await fetch(`${api_base_url}/user-login`);
     // const result = await post.json();
     // console.log(result);
+    const router = useRouter();
 
     // All local states
     const [email, setEmail] = useState("");
@@ -22,22 +24,26 @@ export default function Login() {
         setIsLoading(true);
 
         const info = {
-            "email": email,
-            "password": password,
+            email: email,
+            password: password,
         };
 
-        const data = await fetch(`${api_base_url}/api/user-login`, {
+        const data = await fetchWithAuth(`/user-login`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer ",
-            },
-            body: JSON.stringify(info)
+            body: JSON.stringify(info),
         });
 
-        const dataResponse = await data.json();
+        const dataResponse = data;
+        console.log(data);
 
-        console.log(dataResponse);
+        if (dataResponse.token) {
+            // setCookie("authUserType", data.user.user_type);
+            setCookie("authToken", dataResponse.token);
+            // setCookie("authUserName", data.user.name);
+            router.push("/dashboard", { scroll: false });
+        } else {
+            setErrorMessage(data.message);
+        }
 
         setIsLoading(false);
 
@@ -72,7 +78,10 @@ export default function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button type='submit' className={`${isLoadin ? 'is-loading' : ''}`}>
+                    <button
+                        type='submit'
+                        className={`${isLoadin ? "is-loading" : ""}`}
+                    >
                         <span className='loader'></span>
                         Login
                     </button>

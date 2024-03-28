@@ -1,5 +1,10 @@
+import fetchWithAuth from "@/fetchWithAuth";
 import "./style.css";
-export default function Dashboard() {
+
+export default async function Dashboard() {
+    const data = await fetchWithAuth('/todos');
+
+    // console.log(data);
     return (
         <div className='dashboard-content'>
             <div className='dashboard-content__topbar topbar flex-ctr'>
