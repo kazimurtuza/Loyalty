@@ -40,7 +40,7 @@ export default function Login() {
             // setCookie("authUserType", data.user.user_type);
             setCookie("authToken", dataResponse.token);
             // setCookie("authUserName", data.user.name);
-            router.push("/dashboard", { scroll: false });
+            router.push("admin/dashboard", { scroll: false });
         } else {
             setErrorMessage(data.message);
         }

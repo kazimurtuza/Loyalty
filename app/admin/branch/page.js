@@ -1,9 +1,8 @@
 "use client";
-import { useState, useEffect } from 'react';
 import Link from "next/link";
+import { useEffect, useState } from 'react';
 export default function Dashboard() {
     const [branchList, setBranchList] = useState([]);
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,7 +29,7 @@ export default function Dashboard() {
 
                 <Link
                     href={{
-                        pathname: "/branch/store",
+                        pathname: "/admin/branch/store",
                     }}
                     className='px-4 py-2 mx-1 bg-main text-white rounded'
                 >
@@ -94,9 +93,7 @@ export default function Dashboard() {
                                         </a>
                                     </td>
                                 </tr>))
-
                             }
-
 
                             </tbody>
                         </table>

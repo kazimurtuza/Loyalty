@@ -1,5 +1,6 @@
 "use client";
-import {useState} from "react";
+import fetchWithAuth from "@/fetchWithAuth";
+import { useState } from "react";
 
 export default function Form() {
     const data={
@@ -23,16 +24,12 @@ export default function Form() {
     }
 
     const storeData=async ()=>{
-        const response = await fetch('http://localhost:3000/api/branch', {
+        const response = await fetchWithAuth('/branch', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if needed
-            },
             body: JSON.stringify(store), // Replace with your data
         });
-        const responseData = await response.json();
-        if(responseData.success==true){
+
+        if(response.success==true){
             alert('Successfully Add Branch')
         }
     }
