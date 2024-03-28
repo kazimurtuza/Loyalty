@@ -23,6 +23,7 @@ export async function GET() {
 export async function POST(request) {
 
     let result = [];
+    let msg;
     try {
         const payload = await (request.json());
         await mongoose.connect(connectionStr);
@@ -51,9 +52,9 @@ export async function POST(request) {
         let user = new User(payload);
         result = await user.save();
     } catch (error) {
-        result = error.message;
+        msg = error.message;
     }
-    return NextResponse.json({result, success: true});
+    return NextResponse.json({result,msg, success: true});
 }
 
 

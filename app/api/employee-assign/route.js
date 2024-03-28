@@ -39,7 +39,12 @@ export async function POST(request) {
         {
             return NextResponse.json({msg:"This Counter is not available now",success:false});
         }
-        payload.assign_date_time = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
+        payload.assign_date_time = Date.now;
+        const currentDate = new Date();
+
+        // Format the date
+        payload.assign_date_time = currentDate.toLocaleDateString();
+        //payload.assign_date_time = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
         payload.assign_out_date_time = null;
 
         let employeeAssign =new EmployeeAssignCounter(payload);
