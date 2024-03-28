@@ -1,82 +1,21 @@
-"use client";
 
-function Login() {
+import "./style.css";
+
+export  default async function Login() {
+  const post = await fetch('http://loyaltypaypoints.com:2023/api/counter/660116169c2673a181361372');
+  const result = await post.json();
+  console.log(result);
+
     return (
-        <div className='flex h-screen overflow-hidden'>
-            {/* Content area */}
-            <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
-                <main>
-                    <div className='px-4 sm:px-6 lg:px-8 w-full'>
-                        <div className='font-sans antialiased bg-grey-lightest'>
-                            {/* Content */}
-                            <form
-                                action='#'
-                                className='w-full bg-grey-lightest min-h-screen flex items-center justify-center py-16'
-                                // style={{ paddingTop: "4rem" }}
-                            >
-                                <div className='container max-w-[650px] px-2 sm:px-4 mx-auto'>
-                                    <div className='mx-auto bg-white rounded-xl shadow'>
-                                        <div className='px-8 py-10'>
-                                            <a
-                                                href='/'
-                                                className='max-w-[120px] mx-auto mb-2.5 block'
-                                            >
-                                                <img
-                                                    src='/logo.webp'
-                                                    className='max-w-full'
-                                                    alt=''
-                                                />
-                                            </a>
-                                            <h2 className='text-[24px] sm:text-[28px] text-grey-darker text-center mb-10'>
-                                                Login
-                                            </h2>
-                                            <div className='mb-4'>
-                                                <label
-                                                    className='block text-grey-darker text-sm font-bold mb-2'
-                                                    htmlFor='email-address'
-                                                >
-                                                    Email Address
-                                                </label>
-                                                <input
-                                                    className='appearance-none border rounded w-full py-2 px-3 text-grey-darker'
-                                                    id='email'
-                                                    type='email'
-                                                    placeholder='Your email address'
-                                                />
-                                            </div>
-
-                                            <div className='mb-4'>
-                                                <label
-                                                    className='block text-grey-darker text-sm font-bold mb-2'
-                                                    htmlFor='password'
-                                                >
-                                                    Password
-                                                </label>
-                                                <input
-                                                    className='appearance-none border rounded w-full py-2 px-3 text-grey-darker'
-                                                    id='password'
-                                                    type='password'
-                                                    placeholder='Your secure password'
-                                                />
-                                            </div>
-                                            <div className='flex items-center justify-between mt-8'>
-                                                <button
-                                                    className='bg-indigo-600 duration-300 leading-normal transition opacity-90 hover:opacity-100 text-white font-bold py-2 px-4 rounded'
-                                                    type='submit'
-                                                >
-                                                    Log in
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </div>
+      <div className="user-page login-page">
+      <div className="form">
+        <form className="login-form">
+          <input type="text" placeholder="username"/>
+          <input type="password" placeholder="password"/>
+          <button>login</button>
+          <p className="message">Forget password?? <a href="#">Recover Password</a></p>
+        </form>
+      </div>
+    </div>
     );
 }
-
-export default Login;

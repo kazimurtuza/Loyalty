@@ -26,12 +26,19 @@ export async function POST(request) {
     try {
         const payload = await (request.json());
         await mongoose.connect(connectionStr);
-        if (!payload.name || !payload.email || !payload.password) {
+        if (!payload.first_name || !payload.last_name || !payload.email || !payload.password) {
             return NextResponse.json({msg: 'invalid fields'}, {status: 400});
         }
         if (!validator.isEmail(payload.email)) {
-            return new NextResponse(JSON.stringify({msg: 'Invalid email address'}), {status: 400});
+            return new NextResponse(JSON.stringify({msg: 'Invalid email address','success':false}), {status: 400});
         }
+        const record = {email: payload.email};
+        const is_findEmail = await User.findOne(record);
+        if (is_findEmail) {
+            return NextResponse.json({msg: 'user is already present','success':false}, {status: 409});
+        } 
+        payload.name= await payload.first_name + ' ' + payload.last_name;
+        payload.img=null;
         if (payload.password) {
             const hashPassword = await bcrypt.hash(payload.password, 10);
             payload.password = hashPassword;
@@ -44,7 +51,7 @@ export async function POST(request) {
         let user = new User(payload);
         result = await user.save();
     } catch (error) {
-        result = error;
+        result = error.message;
     }
     return NextResponse.json({result, success: true});
 }

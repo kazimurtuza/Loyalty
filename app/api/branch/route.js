@@ -1,18 +1,19 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { connectionStr } from "@/lib/db";
-import {Branch} from "@/lib/model/branch";
-export async function GET(){
-    let result=[];
-    try{
+import { Branch } from "@/lib/model/branch";
+
+export async function GET(req) {
+    let result = [];
+
+    try {
         await mongoose.connect(connectionStr);
-        result = await Branch.find();
+        result = await Branch.find()
+            .sort({ created_at: -1 })
+    } catch (error) {
+        result = error.message;
     }
-    catch(error)
-    {
-        result=error;
-    }
-    return NextResponse.json(result);
+    return NextResponse.json({data:result,success:true});
 }
 export async function POST(request) {
 

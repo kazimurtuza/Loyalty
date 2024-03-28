@@ -2,13 +2,17 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { connectionStr } from "@/lib/db";
 import {Counter} from "@/lib/model/counter";
+import { Branch } from "@/lib/model/branch";
 
 export async function GET(request,content ){
     let result=[];
     try{
         let counter_id=content.params.counter_id;
         await mongoose.connect(connectionStr);
-        result = await Counter.findById({'_id':counter_id,});
+        result = await Counter.findById({'_id':counter_id,}).populate({
+            path:'branch',
+            model:'Branch'
+        });
     }
     catch(error)
     {
