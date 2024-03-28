@@ -26,9 +26,32 @@ export default function Sidebar() {
                 <ul className='nav__list'>
                     <NavItem title='Dashboard' href='/dashboard' />
 
-                    <NavGroup title='Example Table' href='/table'>
+                    <NavGroup title='Branch Counter' href='/table'>
                         <ul className='nav__sub-list dropdown-body'>
-                            <NavItem title='Table' href='/table' cssClass="nav__sub-link" />
+                            <NavItem title='Branch' href='/branch' cssClass="nav__sub-link" />
+                            <NavItem title='Counter' href='/counter' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+                </ul>
+                <ul className='nav__list'>
+                    <NavGroup title='Staff List' href='/table'>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='Staff List' href='/staff' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+                </ul>
+                <ul className='nav__list'>
+                    <NavGroup title='Contact' href='/contact'>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='Contact Us' href='/contact' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+                </ul>
+
+                <ul className='nav__list'>
+                    <NavGroup title='FAQ' href='/contact'>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='FAQ' href='/faq' cssClass="nav__sub-link" />
                         </ul>
                     </NavGroup>
                 </ul>
