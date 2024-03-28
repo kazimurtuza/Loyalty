@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { connectionStr } from "@/lib/db";
 import { EmployeeAssignCounter } from "@/lib/model/employeeAssignCounter";
-import { Counter } from "@/lib/model/counter";
 import { User } from "@/lib/model/users";
 import { Order } from "@/lib/model/order";
 import { PaymentSetting } from "@/lib/model/payementSetting";
 import { EarnPoint } from "@/lib/model/earnPoint";
+import { Counter } from "@/lib/model/counter";
 
 
 export async function GET(request,content) {
@@ -16,19 +16,13 @@ export async function GET(request,content) {
     let msg=[];
     try{
         await mongoose.connect(connectionStr);
-        const userId=content.params.id;
+        const counterId=content.params.id;
        
-        orderInfo =await Order.find({user: userId}).populate({
+        orderInfo =await Order.find({counter: counterId}).populate({
             path:'counter',
             model:'counters'
-        }).sort({created_at:-1}); 
-        earnPointInfo =await EarnPoint.find({user: userId}).populate({
-            path:'order',
-            model:'Order'
-        }).sort({created_at:-1});
-        const totalCost = await Order.countDocuments({user: userId});
-        const userDetails = await User.findOne({_id: userId});
-        return NextResponse.json({orderInfo,earnPointInfo,totalCost,userDetails,msg,success:true});
+        }).sort({created_at:-1});   
+        return NextResponse.json({orderInfo,msg,success:true});
 
         
     }
