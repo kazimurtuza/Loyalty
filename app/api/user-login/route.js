@@ -1,9 +1,9 @@
-import {NextResponse} from "next/server";
+import { connectionStr } from "@/lib/db";
+import { User } from "@/lib/model/users";
 import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import {User} from "@/lib/model/users";
-import {connectionStr} from "@/lib/db";
-import jwt from "jsonwebtoken"
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
     try {
@@ -11,19 +11,20 @@ export async function POST(request) {
         if (!email || !password) {
             return NextResponse.json({msg: 'invalid fields','success':false}, {status: 400});
         }
+
         await mongoose.connect(connectionStr);
         const srcky=process.env.JWT_SECRET
         const record = {email: email};
         const user = await User.findOne(record);
         if (user) {
-            if(user.is_delete==1)
-            {
+            if(user.is_delete==1) {
                 return NextResponse.json({'msg': 'Account Already Deleted',success:false}, {status: 401});
             }
-            if(user.status==0)
-            {
+
+            if(user.status==0) {
                 return NextResponse.json({'msg': 'Account Already Blocked',success:false}, {status: 401});
             }
+
             let id = user.id;
             let is_admin = 1;
             let type = user.user_type;
@@ -42,5 +43,6 @@ export async function POST(request) {
     } catch (error) {
         return NextResponse.json(error.message);
     }
+
     return NextResponse.json({'msg': 'Email or Password is incorrect','success':false}, {status: 401});
 }

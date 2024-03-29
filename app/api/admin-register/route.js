@@ -5,11 +5,12 @@ import {Admin} from "@/lib/model/admin";
 import validator from "validator/es";
 import bcrypt from "bcrypt";
 import {uploadBase64Img} from "@/app/helper";
+import {User} from "@/lib/model/users";
 export async function GET(){
     let result=[];
     try{
         await mongoose.connect(connectionStr);
-        result = await User.find();
+        result = await User.find()
     }
     catch(error)
     {

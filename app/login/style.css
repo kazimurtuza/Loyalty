@@ -41,6 +41,7 @@
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
+  position: relative;
 }
 
 .form button:hover,.form button:active,.form button:focus {
@@ -60,4 +61,19 @@
 
 .form .register-form {
   display: none;
+}
+
+.form button .loader{
+  position: absolute;
+  left: calc(50% - 10px);
+  top: 8px;
+  opacity: 0;
+}
+
+.form button.is-loading{
+  color: #43A047;
+}
+
+.form button.is-loading .loader{
+  opacity: 1;
 }
