@@ -17,9 +17,17 @@ export async function GET(request,content) {
     let msg="";
     try{
         await mongoose.connect(connectionStr);
-        const userId=content.params.id;
+        const counterId=content.params.id;
        
-        notification =await Notification.find({user: userId}).sort({created_at:-1});   
+        notification =await Notification.find({counter: counterId}).populate([{
+                path:'counter',
+                model:'counters'
+            },
+            {
+                path:'user',
+                model:'users'
+            }  
+        ]).sort({created_at:-1});   
         return NextResponse.json({notification,msg,success:true});
 
         

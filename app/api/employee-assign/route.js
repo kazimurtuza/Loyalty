@@ -53,6 +53,15 @@ export async function POST(request) {
         await mongoose.connect(connectionStr);
         result=await Counter.findOneAndUpdate(filter,payload);
         result=await employeeAssign.save();
+
+        const user = await User.findById(payload.employee);
+
+        // If the user is found, update the access_counter
+        if (user) {
+            user.access_counter = payload.counter;
+            await user.save();
+        }
+
     }
     catch(error)
     {

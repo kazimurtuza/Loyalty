@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken"
 
 export async function POST(request) {
     try {
-        const {name, email, password} = await (request.json());
+        const {name, email, password,device_token} = await (request.json());
         if (!email || !password) {
             return NextResponse.json({msg: 'invalid fields','success':false}, {status: 400});
         }
@@ -30,6 +30,12 @@ export async function POST(request) {
             let is_user = await bcrypt.compare(password, user.password);
             if (is_user) {
                 let token = jwt.sign({name,email,type,is_admin,id}, srcky,{ expiresIn: '1h' });
+
+                if(device_token)
+                {
+                    user.device_token=device_token
+                    await user.save();
+                }
                 return NextResponse.json({user, 'token': token,'success':true}, {status: 200});
             }
         }

@@ -27,6 +27,7 @@ export async function GET(request, content) {
         technovicinityPaymentInfo.public_key = 'FLWPUBK_TEST-871fc73aca10a3927751990add849f51-X';
         technovicinityPaymentInfo.secret_key = 'FLWSECK_TEST-9c9de9a334a635cd6fbbf7c933df78ed-X';
         technovicinityPaymentInfo.encryption_key = 'FLWSECK_TESTac6fe507dafe';
+        technovicinityPaymentInfo.testing_mode = true;
     } catch (error) {
         result = error;
     }

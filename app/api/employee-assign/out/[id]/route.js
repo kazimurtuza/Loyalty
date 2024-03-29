@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { connectionStr } from "@/lib/db";
 import { EmployeeAssignCounter } from "@/lib/model/employeeAssignCounter";
 import { Counter } from "@/lib/model/counter";
+import { User } from "@/lib/model/users";
 
 
 export async function PUT(request,content) {
@@ -28,7 +29,15 @@ export async function PUT(request,content) {
         payload.status=1;
         await mongoose.connect(connectionStr);
         result=await Counter.findOneAndUpdate(filter,payload);
-        result="Assign out successfully"
+        result="Assign out successfully";
+
+        const user = await User.findById(employeeId);
+
+        // If the user is found, update the access_counter
+        if (user) {
+            user.access_counter = "";
+            await user.save();
+        }
     }
     catch(error)
     {

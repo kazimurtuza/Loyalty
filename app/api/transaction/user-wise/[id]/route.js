@@ -13,7 +13,7 @@ export async function GET(request,content) {
 
     let orderInfo=[];
     let earnPointInfo=[];
-    let msg=[];
+    let msg="";
     try{
         await mongoose.connect(connectionStr);
         const userId=content.params.id;

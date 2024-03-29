@@ -8,6 +8,7 @@ import { Order } from "@/lib/model/order";
 import { PaymentSetting } from "@/lib/model/payementSetting";
 import { EarnPoint } from "@/lib/model/earnPoint";
 import { Notification } from "@/lib/model/notification";
+import sendNotification from "@/app/helper";
 
 
 export async function POST(request) {
@@ -43,6 +44,24 @@ export async function POST(request) {
         await notification.save();
 
         msg="Payment Successfully recived";
+
+        if(userInfo.device_token)
+        {
+            const title = 'Order Notification';
+            const body = 'Payment Successfully recived';
+            const tokenList = [userInfo.device_token];
+    
+    
+            const notificationSent = await sendNotification(title, body, tokenList);
+    
+            if (notificationSent) {
+                console.log('Notification sent successfully');
+            } else {
+                console.error('Failed to send notification');
+            }
+        }
+
+
         return NextResponse.json({orderInfo,userDetails,earnPointInfo,msg,success:true});
 
         
