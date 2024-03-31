@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NavLogout() {
     return (
         <div className='user-logout'>
-        <Link href='/logout' className='logout-link flex-ctr-spb'>
+        <Link href='/login' className='logout-link flex-ctr-spb'>
             <span>Logout </span>
             <span className='icon'>
                 <svg
