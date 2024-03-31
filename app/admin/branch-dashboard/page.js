@@ -18,41 +18,9 @@ export default async function Dashboard() {
       </div>
       <div className="dashboard-main-content-wrap">
         <div className="dashboard-main-content">
-        <h1>Overall report</h1>
+        <h1>Overall Report</h1>
           <div className="cards dashboard-main-content__cards flex-start-spb">
-            <div className="card flex-ctr card-1">
-              <div className="card__icon flex-ctr-ctr">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g id="Iconly/Bulk/Notification">
-                    <g id="Notification">
-                      <path
-                        id="Fill 1"
-                        d="M19.7695 11.6453C19.039 10.7923 18.7071 10.0531 18.7071 8.79716V8.37013C18.7071 6.73354 18.3304 5.67907 17.5115 4.62459C16.2493 2.98699 14.1244 2 12.0442 2H11.9558C9.91935 2 7.86106 2.94167 6.577 4.5128C5.71333 5.58842 5.29293 6.68822 5.29293 8.37013V8.79716C5.29293 10.0531 4.98284 10.7923 4.23049 11.6453C3.67691 12.2738 3.5 13.0815 3.5 13.9557C3.5 14.8309 3.78723 15.6598 4.36367 16.3336C5.11602 17.1413 6.17846 17.6569 7.26375 17.7466C8.83505 17.9258 10.4063 17.9933 12.0005 17.9933C13.5937 17.9933 15.165 17.8805 16.7372 17.7466C17.8215 17.6569 18.884 17.1413 19.6363 16.3336C20.2118 15.6598 20.5 14.8309 20.5 13.9557C20.5 13.0815 20.3231 12.2738 19.7695 11.6453"
-                        fill="white"
-                      />
-                      <path
-                        id="Fill 4"
-                        opacity="0.4"
-                        d="M14.0078 19.2284C13.5079 19.1216 10.4617 19.1216 9.96177 19.2284C9.53441 19.3271 9.07227 19.5567 9.07227 20.0603C9.09711 20.5407 9.37837 20.9647 9.76797 21.2336L9.76697 21.2346C10.2709 21.6274 10.8622 21.8771 11.4814 21.9668C11.8113 22.0121 12.1473 22.0101 12.4892 21.9668C13.1073 21.8771 13.6987 21.6274 14.2026 21.2346L14.2016 21.2336C14.5912 20.9647 14.8724 20.5407 14.8973 20.0603C14.8973 19.5567 14.4351 19.3271 14.0078 19.2284"
-                        fill="white"
-                      />
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <div className="card__text">
-                <p className="card__text-sub">Total Branch</p>
-                <h3 className="card__text-main">
-                  {dashboard && dashboard.data.branch}
-                </h3>
-              </div>
-            </div>
+
             <div className="card flex-ctr card-2">
               <div className="card__icon flex-ctr-ctr">
                 <svg

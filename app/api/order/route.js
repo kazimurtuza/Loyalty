@@ -73,3 +73,19 @@ export async function POST(request) {
     }
     
 }
+
+export async function GET(request) {
+    try {
+        await mongoose.connect(connectionStr);
+        var orderList=await Order.find().populate('counter').populate('branch').populate('user');
+
+        return NextResponse.json({orderList:orderList,success:true});
+
+
+    }catch (e) {
+        return NextResponse.json({message:e,success:false});
+
+    }
+
+
+}

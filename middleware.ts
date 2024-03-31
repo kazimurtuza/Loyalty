@@ -48,12 +48,12 @@ export async function middleware(request: NextRequest) {
 // See "Matching Paths" below to learn more
 export const config = {
     matcher: [
-        "/",
-        "/admin/dashboard",
-        "/admin/faq",
-        "/admin/contant",
-        "/admin/staff",
-        "/admin/branch",
-        "/admin/counter"
+        // "/",
+        // "/admin/dashboard",
+        // "/admin/faq",
+        // "/admin/contant",
+        // "/admin/staff",
+        // "/admin/branch",
+        // "/admin/counter"
     ],
 };
