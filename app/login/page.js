@@ -64,7 +64,11 @@ export default function Login() {
 
     return (
         <div className='user-page login-page'>
+            
             <div className='form'>
+            <img src='https://res.cloudinary.com/daqxhckof/image/upload/v1711965390/Loyality/lpp-logo_xywtvd.jpg' width={150} alt='logo-light' />
+            <br></br>
+            <p></p>
                 <form className='login-form' onSubmit={(e) => submitForm(e)}>
                     <input
                         type='text'
