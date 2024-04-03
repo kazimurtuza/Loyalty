@@ -1,15 +1,15 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from "next/link";
+import fetchWithAuth from "@/fetchWithAuth";
 export default function Dashboard() {
     const [staffList, setStaffList] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             // Fetch data from an API or other source
-            const result = await fetch('http://localhost:3000/api/employee-list');
-            const data = await result.json();
-            setStaffList(data)
+            const result = await fetchWithAuth('employee-list');
+             setStaffList(result)
         };
 
         fetchData();
@@ -28,7 +28,7 @@ export default function Dashboard() {
 
                 <Link
                     href={{
-                        pathname: "/staff/store",
+                        pathname: "/admin/staff/store",
                     }}
                     className='px-4 py-2 mx-1 bg-main text-white rounded'
                 >

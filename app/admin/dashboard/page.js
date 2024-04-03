@@ -2,8 +2,8 @@ import fetchWithAuth from "@/fetchWithAuth";
 import "./style.css";
 
 export default async function Dashboard() {
-  const dashboard = await fetchWithAuth("/admin-dashboard");
-  const today_report = await fetchWithAuth("/dashboard_today_report");
+  const dashboard = await fetchWithAuth("admin-dashboard");
+  const today_report = await fetchWithAuth("dashboard_today_report");
   return (
     <div className="dashboard-content">
       <div className="dashboard-content__topbar topbar flex-ctr">

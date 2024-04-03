@@ -1,5 +1,6 @@
 "use client";
 import {useEffect, useState} from "react";
+import fetchWithAuth from "@/fetchWithAuth";
 export default function Counter() {
     const data={
         "first_name":"",
@@ -23,15 +24,11 @@ export default function Counter() {
         });
     }
     const storeData=async ()=>{
-        const response = await fetch('http://localhost:3000/api/user-register', {
+        const response = await fetchWithAuth('/user-register', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify(store), // Replace with your data
         });
-        const responseData = await response.json();
-        if(responseData.success==true){
+        if(response.success==true){
             setStore(data)
             alert('Successfully Added Staff')
         }

@@ -1,5 +1,6 @@
 "use client";
 import {useEffect, useState} from "react";
+import fetchWithAuth from "@/fetchWithAuth";
 
 export default function Counter() {
     const data={
@@ -21,16 +22,13 @@ export default function Counter() {
     }
 
     const storeData=async ()=>{
-        const response = await fetch('http://localhost:3000/api/counter', {
+
+        const response = await fetchWithAuth('/counter', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers if needed
-            },
             body: JSON.stringify(store), // Replace with your data
         });
-        const responseData = await response.json();
-        if(responseData.success==true){
+
+        if(response.success==true){
             setStore(data)
             alert('Successfully Add Counter')
         }
