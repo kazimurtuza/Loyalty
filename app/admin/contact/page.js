@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from "next/link";
+import fetchWithAuth from "@/fetchWithAuth";
 export default function Dashboard() {
     const [contactList, setContact] = useState([]);
 
@@ -8,9 +9,8 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchData = async () => {
             // Fetch data from an API or other source
-            const result = await fetch('http://localhost:3000/api/contact');
-            const data = await result.json();
-            setContact(data.data)
+            const result = await fetchWithAuth('contact');
+            setContact(result.data)
         };
 
         fetchData();

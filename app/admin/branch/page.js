@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from 'react';
+import fetchWithAuth from "@/fetchWithAuth";
 export default function Dashboard() {
     const [branchList, setBranchList] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             // Fetch data from an API or other source
-            const result = await fetch('http://localhost:3000/api/branch');
-            const data = await result.json();
-            setBranchList(data.data)
+            const result = await fetchWithAuth("branch");
+            setBranchList(result.data)
         };
 
         fetchData();

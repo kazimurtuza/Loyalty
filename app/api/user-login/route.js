@@ -28,13 +28,15 @@ export async function POST(request) {
             let id = user.id;
             let is_admin = 1;
             let type = user.user_type;
+            let branch = user.branch;
             let is_user = await bcrypt.compare(password, user.password);
             if (is_user) {
-                let token = jwt.sign({name,email,type,is_admin,id}, srcky,{ expiresIn: '1h' });
+                let token = jwt.sign({name,email,type,is_admin,id,branch}, srcky,{ expiresIn: '1h' });
 
                 if(device_token)
                 {
                     user.device_token=device_token
+
                     await user.save();
                 }
                 return NextResponse.json({user, 'token': token,'success':true}, {status: 200});

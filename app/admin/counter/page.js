@@ -29,7 +29,7 @@ export default function Dashboard() {
 
                 <Link
                     href={{
-                        pathname: "/counter/store",
+                        pathname: "/admin/counter/store",
                     }}
                     className='px-4 py-2 mx-1 bg-main text-white rounded'
                 >
