@@ -7,6 +7,7 @@ import { User } from "@/lib/model/users";
 import { Order } from "@/lib/model/order";
 import { PaymentSetting } from "@/lib/model/payementSetting";
 import { EarnPoint } from "@/lib/model/earnPoint";
+import {ObjectId} from "mongodb";
 
 
 export async function GET(request,content) {
@@ -30,7 +31,28 @@ export async function GET(request,content) {
                 model: 'counters',
             }
         }).limit(5).sort({created_at:-1});
-        const totalCost = await Order.countDocuments({user: userId});
+        // const totalCost = await Order.countDocuments({user: userId});
+
+
+
+        const totalCostGet = await Order.aggregate([
+            {
+                $match: {
+                    user: new ObjectId(userId), // Filtering by branch ID = 20
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalCost: {$sum: "$total_amount"},
+                },
+            },
+        ]);
+
+
+      var totalCost=totalCostGet[0] ? totalCostGet[0].totalCost : 0;
+
+
         const userDetails = await User.findOne({_id: userId});
         return NextResponse.json({orderInfo,earnPointInfo,totalCost,userDetails,msg,success:true});
 
