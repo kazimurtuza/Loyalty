@@ -38,9 +38,10 @@ export default function Counter() {
     useEffect(() => {
         const fetchData = async () => {
             // Fetch data from an API or other source
-            const result = await fetch('http://localhost:3000/api/branch');
-            const data = await result.json();
-            setBranch(data.data)
+            const result = await fetchWithAuth('/branch');
+            console.log(result);
+            const data = await result.data;
+            setBranch(data)
         };
 
         fetchData();
@@ -59,7 +60,7 @@ export default function Counter() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar'>
-                <h3 className='title'>Branch Add</h3>
+                <h3 className='title'>Counter Add</h3>
 
             </div>
             <div className='dashboard-main-content-wrap'>
@@ -67,10 +68,10 @@ export default function Counter() {
                 <div className='dashboard-main-content'>
                     <div className='form-row col-3'>
                         <div className='from-field'>
-                            <label>Branch Name</label>
+                            <label>Counter Name</label>
                             <input
                                 name="name"
-                                value={branch.name}
+                                value={branch?branch.name:""}
                                 className='from-element from-element-text'
                                 onInput={setData}
                                 type='text'
@@ -78,7 +79,7 @@ export default function Counter() {
                         </div>
                         <div className="dashboard-form__field select-field">
                             <label>Branch</label>
-                            <select name="branch" id=""    value={branch.branch} onChange={setData} className="select from-element from-element" >
+                            <select name="branch" id=""    value={branch?branch.branch:""} onChange={setData} className="select from-element from-element" >
                                 <option value="" >Select</option>
                                 {branch && branch.map(item=>( <option value={item._id} >{item.name}</option>))}
                             </select>
@@ -86,7 +87,7 @@ export default function Counter() {
                         <div className='from-field'>
                             <label>Details</label>
                             <div className="select-wrap">
-                                <textarea   name="info" value={branch.info}  onInput={setData}></textarea>
+                                <textarea   name="info" value={branch ? branch.info: ""}  onInput={setData}></textarea>
                             </div>
                         </div>
                     </div>
