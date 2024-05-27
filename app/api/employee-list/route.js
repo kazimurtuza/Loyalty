@@ -12,7 +12,7 @@ export async function GET() {
 
     try {
         await mongoose.connect(connectionStr);
-        result = await User.find({ user_type: { $ne: "user" } }).populate('branch');
+        result = await User.find({ user_type: { $ne: "user" } }).populate('branch').sort({ created_at: -1 });
     } catch (error) {
         result = error;
     }

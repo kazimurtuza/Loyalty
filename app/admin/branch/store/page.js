@@ -1,14 +1,15 @@
 "use client";
 import fetchWithAuth from "@/fetchWithAuth";
 import { useState } from "react";
+import Swal from 'sweetalert2';
 
 export default function Form() {
     const data={
         "name": "",
         "info": "",
-        "public_key":"2312313123123",
-        "screct_key":"213123123",
-        "encryption_key":"1231231231"
+        "public_key":"",
+        "screct_key":"",
+        "encryption_key":""
     }
 
     const [store,setStore]=useState(data)
@@ -30,7 +31,12 @@ export default function Form() {
         });
 
         if(response.success==true){
-            alert('Successfully Add Branch')
+            Swal.fire({
+                title: 'success',
+                text: 'Successfully Add Branch',
+                icon: 'success',
+                // confirmButtonText: 'Cool'
+            })
         }
     }
 
@@ -57,6 +63,40 @@ export default function Form() {
                                     className='from-element from-element-text'
                                     onInput={setData}
                                     type='text'
+                                    required
+                                />
+                            </div>
+                            <div className='from-field'>
+                                <label>Public Key</label>
+                                <input
+                                    name="public_key"
+                                    className='from-element from-element-text'
+                                    onInput={setData}
+                                    type='text'
+                                    placeholder="FLWPUBK_TEST-871fc73aca10a3927751990add849f51-X"
+                                    required
+                                />
+                            </div>
+                            <div className='from-field'>
+                                <label>Screct key</label>
+                                <input
+                                    name="screct_key"
+                                    className='from-element from-element-text'
+                                    onInput={setData}
+                                    type='text'
+                                    placeholder="FLWSECK_TEST-9c9de9a334a635cd6fbbf7c933df78ed-X"
+                                    required
+                                />
+                            </div>
+                            <div className='from-field'>
+                                <label>Encryption Key</label>
+                                <input
+                                    name="encryption_key"
+                                    className='from-element from-element-text'
+                                    onInput={setData}
+                                    type='text'
+                                    placeholder="FLWSECK_TESTac6fe507dafe"
+                                    required
                                 />
                             </div>
                             <div className='from-field'>

@@ -77,7 +77,7 @@ export async function POST(request) {
 export async function GET(request) {
     try {
         await mongoose.connect(connectionStr);
-        var orderList=await Order.find().populate('counter').populate('branch').populate('user');
+        var orderList=await Order.find().populate('counter').populate('branch').populate('user').sort({ created_at: -1 });
 
         return NextResponse.json({orderList:orderList,success:true});
 

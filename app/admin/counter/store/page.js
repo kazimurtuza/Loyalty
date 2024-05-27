@@ -2,6 +2,7 @@
 import {useEffect, useState} from "react";
 import fetchWithAuth from "@/fetchWithAuth";
 import { getCookie } from "cookies-next";
+import Swal from 'sweetalert2';
 
 export default function Counter() {
     const branchId = getCookie("branch");
@@ -32,7 +33,12 @@ export default function Counter() {
 
         if(response.success==true){
             setStore(data)
-            alert('Successfully Add Counter')
+            Swal.fire({
+                title: 'success',
+                text: 'Successfully Add Counter',
+                icon: 'success',
+                // confirmButtonText: 'Cool'
+            })
         }
     }
 

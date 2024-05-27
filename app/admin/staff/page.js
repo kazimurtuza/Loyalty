@@ -43,6 +43,7 @@ export default function Dashboard() {
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Branch</th>
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>User Type</th>
@@ -55,6 +56,7 @@ export default function Dashboard() {
                                 staffList &&  staffList.map((item,index)=> (<tr key={index}>
                                     <td>{index+1}</td>
                                     <td>{item.name} </td>
+                                    <td>{item.branch && item.branch.name}</td>
                                     <td>{item.phone}</td>
                                     <td>{item.email}</td>
                                     <td>{item.user_type}</td>

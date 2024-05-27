@@ -34,6 +34,10 @@ export default function Counter() {
             setStore(data)
             alert('Successfully Added Staff')
         }
+        else
+        {
+            alert(response.msg);
+        }
     }
 
 
