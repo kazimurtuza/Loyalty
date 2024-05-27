@@ -1,8 +1,10 @@
+import { getCookie } from "cookies-next";
 import NavGroup from "./navGroup";
 import NavItem from "./navItem";
 import NavLogout from "./navLogout";
 import "./style.css";
 export default function Sidebar() {
+    const usertype=getCookie('usertype');
     return (
         <div className='nav-panel-wrap'>
             <nav className='nav-panel nav'>
@@ -28,12 +30,15 @@ export default function Sidebar() {
 
                     <NavGroup title='Branch Counter' href='/admin/branch'>
                         <ul className='nav__sub-list dropdown-body'>
-                            <NavItem title='Branch' href='/admin/branch' cssClass="nav__sub-link" />
-                            <NavItem title='Counter' href='/admin/counter' cssClass="nav__sub-link" />
+                            {/* usertype wise branch */}
+                            { usertype=="brand-admin" && <NavItem title='Branch' href='/admin/branch' cssClass="nav__sub-link" />}                  
+                            { (usertype=="branch-admin") && <NavItem title='Counter' href='/admin/counter' cssClass="nav__sub-link" />}
+
                         </ul>
                     </NavGroup>
                 </ul>
                 <ul className='nav__list'>
+
                     <NavGroup title='Staff List' href='/admin/staff'>
                         <ul className='nav__sub-list dropdown-body'>
                             <NavItem title='Staff List' href='/admin/staff' cssClass="nav__sub-link" />

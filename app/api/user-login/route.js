@@ -18,11 +18,11 @@ export async function POST(request) {
         const user = await User.findOne(record);
         if (user) {
             if(user.is_delete==1) {
-                return NextResponse.json({'msg': 'Account Already Deleted',success:false}, {status: 401});
+                return NextResponse.json({'msg': 'Account Already Deleted',success:false}, {status: 200});
             }
 
             if(user.status==0) {
-                return NextResponse.json({'msg': 'Account Already Blocked',success:false}, {status: 401});
+                return NextResponse.json({'msg': 'Account Already Blocked',success:false}, {status: 200});
             }
 
             let id = user.id;
@@ -46,5 +46,5 @@ export async function POST(request) {
         return NextResponse.json(error.message);
     }
 
-    return NextResponse.json({'msg': 'Email or Password is incorrect','success':false}, {status: 401});
+    return NextResponse.json({'msg': 'Email or Password is incorrect','success':false}, {status: 200});
 }

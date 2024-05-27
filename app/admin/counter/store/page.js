@@ -1,11 +1,13 @@
 "use client";
 import {useEffect, useState} from "react";
 import fetchWithAuth from "@/fetchWithAuth";
+import { getCookie } from "cookies-next";
 
 export default function Counter() {
+    const branchId = getCookie("branch");
     const data={
         "name":"",
-        "branch":null,
+        "branch":branchId,
         "info":""
     }
     const [store,setStore]=useState(data)
@@ -77,13 +79,13 @@ export default function Counter() {
                                 type='text'
                             />
                         </div>
-                        <div className="dashboard-form__field select-field">
+                        {/* <div className="dashboard-form__field select-field">
                             <label>Branch</label>
                             <select name="branch" id=""    value={branch?branch.branch:""} onChange={setData} className="select from-element from-element" >
                                 <option value="" >Select</option>
                                 {branch && branch.map(item=>( <option value={item._id} >{item.name}</option>))}
                             </select>
-                        </div>
+                        </div> */}
                         <div className='from-field'>
                             <label>Details</label>
                             <div className="select-wrap">

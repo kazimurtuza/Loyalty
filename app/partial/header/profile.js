@@ -1,8 +1,10 @@
 "use client";
+import { getCookie } from 'cookies-next';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from "react";
 export default function Profile() {
     const pathname = usePathname();
+    const authUserName = getCookie('authUserName');
     const [profileOpen, setProfileOpen] = useState(false);
     function onProfileClick(){
         setProfileOpen(!profileOpen);
@@ -18,7 +20,7 @@ export default function Profile() {
                 <span className='profile__img'>
                     {/* <img src='imgs/user-img.png' alt='profile-image' /> */}
                 </span>
-                <span className='profile__name'>John doe</span>
+                <span className='profile__name'>{ authUserName }</span>
                 <span className='profile__arrow'>
                     <svg
                         width='16'
@@ -43,7 +45,7 @@ export default function Profile() {
                     </a>
                 </li>
                 <li>
-                    <a className='profile__dropdown-link' href='#'>
+                    <a className='profile__dropdown-link' href='/login'>
                         Log-out
                     </a>
                 </li>

@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from "next/link";
+import QRCodeComponent from '../QRCodeComponent';
 export default function Dashboard() {
     const [counterList, setCounterList] = useState(null);
+    const [qrValue, setQrValue] = useState('Hello, QR Code!');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,6 +49,7 @@ export default function Dashboard() {
                                 <th>Counter Branch</th>
                                 <th>Counter No</th>
                                 <th>Counter Info</th>
+                                <th>QR Code</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -59,6 +62,9 @@ export default function Dashboard() {
                                     <td>{item.branch.name}</td>
                                     <td>{item.counter_no}</td>
                                     <td>{item.branch.info}</td>
+                                    <td>
+                                                <QRCodeComponent value={'LoyaltyPoints:'+item._id.toString()} />
+                                    </td>
                                     <td className="status">{item.branch.status?"Active":"Inactive"}</td>
                                     <td>
                                         <a href="#" className="edit-row">

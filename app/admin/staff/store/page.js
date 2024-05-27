@@ -1,7 +1,9 @@
 "use client";
 import {useEffect, useState} from "react";
 import fetchWithAuth from "@/fetchWithAuth";
+import { getCookie } from "cookies-next";
 export default function Counter() {
+    const usertype = getCookie("usertype");
     const data={
         "first_name":"",
         "last_name":"",
@@ -59,7 +61,7 @@ export default function Counter() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar'>
-                <h3 className='title'>Branch Add</h3>
+                <h3 className='title'>Staff Add</h3>
 
             </div>
             <div className='dashboard-main-content-wrap'>
@@ -120,8 +122,8 @@ export default function Counter() {
                                 <option value="" >Select</option>
                                 <option value="" >SELECT</option>
                                 <option value="employee" >Employee</option>
-                                <option value="branch-admin" >Branch Admin</option>
-                                <option value="brand-admin" > Brand Admin</option>
+                                {usertype=="brand-admin" &&  <option value="branch-admin" >Branch Admin</option>}
+                                {usertype=="brand-admin" &&  <option value="brand-admin" >Brand Admin</option>}
 
                             </select>
                         </div>

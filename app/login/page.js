@@ -36,13 +36,17 @@ export default function Login() {
         const dataResponse = data;
         console.log(data);
 
-        if (dataResponse.token) {
+
+        if (dataResponse.success==true) {
             // setCookie("authUserType", data.user.user_type);
             setCookie("authToken", dataResponse.token);
-            // setCookie("authUserName", data.user.name);
+            setCookie("usertype",dataResponse.user.user_type);
+            setCookie("authUserName", dataResponse.user.name);
+            setCookie("authUserId", dataResponse.user._id);
+            setCookie("branch", dataResponse.user.branch);
             router.push("admin/dashboard", { scroll: false });
         } else {
-            setErrorMessage(data.message);
+            setErrorMessage(data.msg);
         }
 
         setIsLoading(false);
@@ -68,7 +72,7 @@ export default function Login() {
             <div className='form'>
             <img src='https://res.cloudinary.com/daqxhckof/image/upload/v1711965390/Loyality/lpp-logo_xywtvd.jpg' width={150} alt='logo-light' />
             <br></br>
-            <p></p>
+            <p>{errorMessage}</p>
                 <form className='login-form' onSubmit={(e) => submitForm(e)}>
                     <input
                         type='text'
