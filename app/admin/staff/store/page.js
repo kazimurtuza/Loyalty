@@ -2,6 +2,8 @@
 import {useEffect, useState} from "react";
 import fetchWithAuth from "@/fetchWithAuth";
 import { getCookie } from "cookies-next";
+import Swal from 'sweetalert2';
+
 export default function Counter() {
     const usertype = getCookie("usertype");
     const data={
@@ -32,7 +34,12 @@ export default function Counter() {
         });
         if(response.success==true){
             setStore(data)
-            alert('Successfully Added Staff')
+            Swal.fire({
+                title: 'success',
+                text: 'Successfully Add Staff',
+                icon: 'success',
+                // confirmButtonText: 'Cool'
+            })
         }
         else
         {
@@ -140,7 +147,6 @@ export default function Counter() {
                                 value={store.password}
                                 className='from-element from-element-text'
                                 onInput={setData}
-                                type='text'
                             />
                         </div>
                     </div>
