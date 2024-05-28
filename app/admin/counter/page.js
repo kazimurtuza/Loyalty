@@ -4,15 +4,18 @@ import Link from "next/link";
 import QRCodeComponent from '../QRCodeComponent';
 import { get } from 'mongoose';
 import { getCookie } from 'cookies-next';
+import fetchWithAuth from '@/fetchWithAuth';
 export default function Dashboard() {
     const [counterList, setCounterList] = useState(null);
     const [qrValue, setQrValue] = useState('Hello, QR Code!');
     const branch=getCookie("branch");
 
+    const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
     useEffect(() => {
         const fetchData = async () => {
             // Fetch data from an API or other source
-            const result = await fetch('http://localhost:3000/api/branch-counter/'+branch);
+            const result = await fetch(`${$baseUrl}/api/branch-counter/`+branch);
             const data = await result.json();
             setCounterList(data)
         };

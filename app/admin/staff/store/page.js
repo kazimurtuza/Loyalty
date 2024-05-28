@@ -15,6 +15,7 @@ export default function Counter() {
         "user_type":"employee",
         "branch":""
     }
+    const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const [store,setStore]=useState(data)
     const [branch,setBranch]=useState([])
 
@@ -51,7 +52,7 @@ export default function Counter() {
     useEffect(() => {
         const fetchData = async () => {
             // Fetch data from an API or other source
-            const result = await fetch('http://localhost:3000/api/branch');
+            const result = await fetch(`${$baseUrl}/api/branch`);
             const data = await result.json();
             setBranch(data.data)
         };
