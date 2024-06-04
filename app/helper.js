@@ -37,34 +37,42 @@ export async function uploadBase64Img(image) {
 
 export default async function sendNotification(title, body, tokenList) {
     try {
-      const url = 'https://fcm.googleapis.com/fcm/send';
-      const FcmToken = tokenList;
-      const serverKey = 'AAAA3WmLRRM:APA91bHHMEYXDRuak81D3zljzTgbYjvXM6WP2eu0wdhzAAorBFX52bX1sEG2xG6kDgO4Y-fKJBnZNRmmmSfUI94XYyo_bj06Uk_X-QKNhGzfY5wuw82kNPZxLth6IiLJy20M3ITGKTx3'; // ADD SERVER KEY HERE PROVIDED BY FCM
-  
-      const data = {
-        registration_ids: FcmToken,
-        notification: {
-          title: title,
-          body: body,
-        },
-      };
-  
-      const headers = {
-        Authorization: 'key=' + serverKey,
-        'Content-Type': 'application/json',
-      };
-  
-      const response = await axios.post(url, data, { headers });
-  
-      if (response.status === 200) {
-        console.log('Notification sent successfully');
-        return true;
-      } else {
-        console.error('Failed to send notification');
-        return false;
-      }
-    } catch (error) {
-      console.error('Error sending notification:', error);
-      return false;
+        const url = 'https://fcm.googleapis.com/fcm/send';
+        const FcmToken = tokenList;
+        const serverKey = 'AAAA3WmLRRM:APA91bHHMEYXDRuak81D3zljzTgbYjvXM6WP2eu0wdhzAAorBFX52bX1sEG2xG6kDgO4Y-fKJBnZNRmmmSfUI94XYyo_bj06Uk_X-QKNhGzfY5wuw82kNPZxLth6IiLJy20M3ITGKTx3'; // ADD SERVER KEY HERE PROVIDED BY FCM
+        
+        const data = {
+            registration_ids: FcmToken,
+            notification: {
+                title: title,
+                body: body,
+            },
+        };
+        
+        const headers = {
+            Authorization: 'key=' + serverKey,
+            'Content-Type': 'application/json',
+        };
+        
+        fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log(response);
+            } else {
+                console.error('Failed to send notification');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
+    catch(error)
+    {
+        console.error('Error:', error);
+    }
+
   }

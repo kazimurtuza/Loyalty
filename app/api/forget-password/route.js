@@ -18,13 +18,13 @@ export async function POST(request) {
 
 
     
-   const transporter = nodemailer.createTransport({
-        host: process.env.HOST,
+    const transporter = nodemailer.createTransport({
+        host: 'mail.loyaltypaypoints.com',
         port: 465,
         secure: true, // Set to false for explicit TLS
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD,
+            user: 'admin@loyaltypaypoints.com',
+            pass: 'J[_AZgPYPSb7#a',
         },
         tls: {
             // Do not fail on invalid certificates

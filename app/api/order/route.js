@@ -34,7 +34,10 @@ export async function POST(request) {
         earnPointInfo=await earnPoint.save();
 
         let userInfo=await User.findById(payload.user);
-        userInfo.balance=userInfo.balance-payload.total_amount;
+        if(payload.wallet_amount>0)
+        {
+            userInfo.balance=userInfo.balance-payload.wallet_amount;
+        }    
         userInfo.points = parseFloat(userInfo.points) + parseFloat(earnPointInfo.amount);
         let userDetails=await userInfo.save();
 

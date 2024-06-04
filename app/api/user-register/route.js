@@ -36,7 +36,7 @@ export async function POST(request) {
         const record = {email: payload.email};
         const is_findEmail = await User.findOne(record);
         if (is_findEmail) {
-            return NextResponse.json({msg: 'user is already present','success':false}, {status: 200});
+            return NextResponse.json({msg: 'Email is already present','success':false}, {status: 400});
         } 
         payload.name= await payload.first_name + ' ' + payload.last_name;
         payload.img=null;
