@@ -8,6 +8,7 @@ import {headers} from "next/headers";
 import { User } from "@/lib/model/users";
 import { Counter } from "@/lib/model/counter";
 import { branch } from "@/lib/model/branch";
+import bcrypt from 'bcrypt';
 
 export async function GET(){
 
@@ -42,7 +43,7 @@ export async function PUT(request) {
         var result;
         await mongoose.connect(connectionStr);
         const userInfo = await AuthUser();
-        const { first_name,last_name, phone, image } = await request.json();
+        const { first_name,last_name, phone, image,password } = await request.json();
         let user = await User.find({ _id: userInfo.id });
 
         if (user) {
@@ -70,6 +71,11 @@ export async function PUT(request) {
             {        
                 let UpdateImage=await uploadBase64Img(image);
                 update.img=UpdateImage;
+            }
+            if(password)
+            {        
+                const hashPassword = await bcrypt.hash(password, 10);
+                update.password = hashPassword;
             }
            
           

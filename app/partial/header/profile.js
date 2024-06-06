@@ -47,7 +47,7 @@ export default function Profile() {
             </div>
             <ul className='profile__dropdown dropdown-body'>
                 <li>
-                    <a className='profile__dropdown-link' href='#'>
+                    <a className='profile__dropdown-link' href='/admin/profile'>
                         Profile
                     </a>
                 </li>
