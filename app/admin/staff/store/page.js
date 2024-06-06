@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 
 export default function Counter() {
     const usertype = getCookie("usertype");
+    const branchId = getCookie("branch");
+    console.log(branchId);
     const data={
         "first_name":"",
         "last_name":"",
@@ -18,6 +20,15 @@ export default function Counter() {
     const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const [store,setStore]=useState(data)
     const [branch,setBranch]=useState([])
+
+    useEffect(() => {
+        if (usertype === "branch-admin") {
+            setStore((prevStore) => ({
+                ...prevStore,
+                branch: branchId
+            }));
+        }
+    }, [usertype, branchId]);
 
     function  setData(e){
         const {name, value} = e.target;
@@ -58,7 +69,7 @@ export default function Counter() {
         };
 
         fetchData();
-    }, []);
+    }, [$baseUrl]);
 
 
 
@@ -121,18 +132,19 @@ export default function Counter() {
                                 type='text'
                             />
                         </div>
-                        <div className="dashboard-form__field select-field">
-                            <label>Branch</label>
-                            <select name="branch" id=""    value={branch.branch} onChange={setData} className="select from-element from-element" >
-                                <option value="" >Select</option>
-                                {branch && branch.map(item=>( <option value={item._id} >{item.name}</option>))}
-                            </select>
-                        </div>
+                        {usertype!='branch-admin' &&
+                            <div className="dashboard-form__field select-field">
+                                <label>Branch</label>
+                                <select name="branch" id=""    value={branch.branch} onChange={setData} className="select from-element from-element" >
+                                    <option value="" >Select</option>
+                                    {branch && branch.map((item,index)=>( <option value={item._id} key={index}>{item.name}</option>))}
+                                </select>
+                            </div>
+                        }
                         <div className="dashboard-form__field select-field">
                             <label>User Type</label>
                             <select name="user_type" id=""    value={store.user_type} onChange={setData} className="select from-element from-element" >
                                 <option value="" >Select</option>
-                                <option value="" >SELECT</option>
                                 <option value="employee" >Employee</option>
                                 {usertype=="brand-admin" &&  <option value="branch-admin" >Branch Admin</option>}
                                 {usertype=="brand-admin" &&  <option value="brand-admin" >Brand Admin</option>}

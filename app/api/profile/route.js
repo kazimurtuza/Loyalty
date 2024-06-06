@@ -6,6 +6,8 @@ import { AuthUser } from "@/app/helper";
 import { uploadBase64Img } from "@/app/helper";
 import {headers} from "next/headers";
 import { User } from "@/lib/model/users";
+import { Counter } from "@/lib/model/counter";
+import { branch } from "@/lib/model/branch";
 
 export async function GET(){
 
@@ -16,7 +18,16 @@ export async function GET(){
         const userInfo = await AuthUser();
         await mongoose.connect(connectionStr);
 
-        result = await User.findById({_id:userInfo.id});     
+        result = await User.findById({_id:userInfo.id}).populate(
+            {
+                path:'access_counter',
+                model:'counters',
+                populate: {
+                    path: 'branch',  
+                    model: 'Branch',
+                }
+            }
+        );     
     }
     catch(error)
     {

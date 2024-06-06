@@ -2,17 +2,24 @@
 import { getCookie } from 'cookies-next';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from "react";
+
 export default function Profile() {
     const pathname = usePathname();
-    const authUserName = getCookie('authUserName');
+    const [authUserName, setAuthUserName] = useState('');
     const [profileOpen, setProfileOpen] = useState(false);
-    function onProfileClick(){
+
+    function onProfileClick() {
         setProfileOpen(!profileOpen);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
+        const username = getCookie('authUserName');
+        setAuthUserName(username);
+    }, []);
+
+    useEffect(() => {
         setProfileOpen(false);
-    }, [pathname])
+    }, [pathname]);
 
     return (
         <div className={`header__profile profile dropdown ${profileOpen ? 'dropdown-active' : ''}`}>
@@ -20,7 +27,7 @@ export default function Profile() {
                 <span className='profile__img'>
                     {/* <img src='imgs/user-img.png' alt='profile-image' /> */}
                 </span>
-                <span className='profile__name'>{ authUserName }</span>
+                <span className='profile__name'>{authUserName}</span>
                 <span className='profile__arrow'>
                     <svg
                         width='16'

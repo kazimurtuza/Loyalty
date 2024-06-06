@@ -5,6 +5,7 @@ import {User} from "@/lib/model/users";
 import {connectionStr} from "@/lib/db";
 import validator from "validator/es";
 import {uploadBase64Img} from "@/app/helper";
+import nodemailer from "nodemailer";
 
 export async function GET() {
 
@@ -51,6 +52,38 @@ export async function POST(request) {
         }
         let user = new User(payload);
         result = await user.save();
+
+
+        const transporter = nodemailer.createTransport({
+            host: 'mail.loyaltypaypoints.com',
+            port: 465,
+            secure: true, // Set to false for explicit TLS
+            auth: {
+                user: 'admin@loyaltypaypoints.com',
+                pass: 'J[_AZgPYPSb7#a',
+            },
+            tls: {
+                // Do not fail on invalid certificates
+                //rejectUnauthorized: false,
+            },
+        });
+
+
+        const emailTemplatePath = path.resolve("./app/emails/forget_password.ejs");
+        const emailTemplate = fs.readFileSync(emailTemplatePath, "utf-8");
+        const mailContent = ejs.render(emailTemplate, { name:userInfo.name,date:new Date()});
+
+
+        const mailOptions = {
+            from: 'admin@loyaltypaypoints.com',
+            to: user.email,
+            subject: "Loyality Account Password Reset",
+            html: mailContent,
+        };
+
+        // Send the email
+        await transporter.sendMail(mailOptions);
+
     } catch (error) {
         msg = error.message;
     }

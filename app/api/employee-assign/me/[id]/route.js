@@ -16,7 +16,11 @@ export async function GET(request,content) {
         {
             result = await EmployeeAssignCounter.find({employee:userId,status:1}).populate([{
                 path:'counter',
-                model:'counters'
+                model:'counters',
+                populate: {
+                    path: 'branch',  
+                    model: 'Branch',
+                }
             },
             {
                 path:'employee',

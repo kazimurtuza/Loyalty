@@ -39,17 +39,17 @@ export default function Dashboard() {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Message</th>
-                                <th>Action</th>
+                                {/* <th>Action</th> */}
                             </tr>
                             </thead>
                             <tbody>
                             {
                                 contactList &&  contactList.map((item,index)=> (<tr key={index}>
                                     <td>{index+1}</td>
-                                    <td>{contactList.first_name}  {contactList.last_name}</td>
+                                    <td>{item.first_name}  {item.last_name}</td>
                                     <td>{item.email}</td>
                                     <td>{item.message}</td>
-                                    <td>
+                                    {/* <td>
                                         <a href="#" className="edit-row">
                                             <svg
                                                 width="24"
@@ -84,7 +84,7 @@ export default function Dashboard() {
                                                 />
                                             </svg>
                                         </a>
-                                    </td>
+                                    </td> */}
                                 </tr>))
 
                             }

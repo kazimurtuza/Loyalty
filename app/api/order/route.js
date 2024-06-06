@@ -48,7 +48,7 @@ export async function POST(request) {
 
         msg="Payment Successfully recived";
 
-        if(userInfo.device_token)
+        if(userInfo.device_token && userInfo.is_notification_on==true)
         {
             const title = 'Order Notification';
             const body = 'Payment Successfully recived';
@@ -64,6 +64,24 @@ export async function POST(request) {
             }
         }
 
+        let counterAssingUser= User.findOne({access_counter:payload.counter});
+        if(counterAssingUser)
+        {
+            if(counterAssingUser.device_token && counterAssingUser.is_notification_on==true)
+            {
+                const title = 'Order Notification';
+                const body = userInfo.name +' pay '+payload.total_amount+' against your counter';
+                const tokenList = [userInfo.device_token];
+            
+                const notificationSent = await sendNotification(title, body, tokenList);
+        
+                if (notificationSent) {
+                    console.log('Notification sent successfully');
+                } else {
+                    console.error('Failed to send notification');
+                }
+            }
+        }
 
         return NextResponse.json({orderInfo,userDetails,earnPointInfo,msg,success:true});
 
@@ -79,14 +97,20 @@ export async function POST(request) {
 
 export async function GET(request) {
     try {
+        const info = await new URL(request.url)
+        const searchParams = info.searchParams;
+        let page = Number(searchParams.get('page')) || 1;
+        let limit = Number(searchParams.get('limit')) || 12;
+        let skip = (page - 1) * limit;
+
         await mongoose.connect(connectionStr);
-        var orderList=await Order.find().populate('counter').populate('branch').populate('user').sort({ created_at: -1 });
+        var orderList=await Order.find().populate('counter').populate('branch').populate('user').sort({ created_at: -1 }).skip(skip).limit(limit);;
 
         return NextResponse.json({orderList:orderList,success:true});
 
 
     }catch (e) {
-        return NextResponse.json({message:e,success:false});
+        return NextResponse.json({message:e.message,success:false});
 
     }
 

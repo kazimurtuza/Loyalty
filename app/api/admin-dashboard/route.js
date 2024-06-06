@@ -18,14 +18,19 @@ export async function GET(req) {
         const user = await User.countDocuments({user_type: "user"});
         const order = await Order.countDocuments();
         const {ObjectId} = require('mongodb');
-        var userInfo = await AuthUser();
+        const info = await new URL(req.url)
+        const searchParams = info.searchParams;
+        let id = searchParams.get('id');
+        console.log(id);
+        var userInfo = await User.findOne({_id:id});
+
         var srcData = {
             $match: {
                 branch: new ObjectId(userInfo.branch), // Filtering by branch ID = 20
             }
         };
 
-        var src = userInfo.type == "branch-admin" ? srcData : "";
+        var src = userInfo.user_type == "branch-admin" ? srcData : "";
 
 
         const totalPayment = await Order.aggregate([
@@ -47,7 +52,7 @@ export async function GET(req) {
                 },
             },
         ]);
-
+      
         const superAdminPayment = await Order.aggregate([
             src,
             {

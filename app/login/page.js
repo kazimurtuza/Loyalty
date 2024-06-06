@@ -1,6 +1,6 @@
 "use client";
 import fetchWithAuth from "@/fetchWithAuth";
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import "./style.css";
@@ -44,6 +44,8 @@ export default function Login() {
             setCookie("authUserName", dataResponse.user.name);
             setCookie("authUserId", dataResponse.user._id);
             setCookie("branch", dataResponse.user.branch);
+            let id=getCookie("authUserId");
+            console.log(id);
             router.push("admin/dashboard", { scroll: false });
         } else {
             setErrorMessage(data.msg);

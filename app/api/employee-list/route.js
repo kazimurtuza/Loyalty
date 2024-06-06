@@ -11,8 +11,15 @@ export async function GET() {
     let result = [];
 
     try {
+        const info = await new URL(request.url)
+        const searchParams = info.searchParams;
+        let page = Number(searchParams.get('page')) || 1;
+        let limit = Number(searchParams.get('limit')) || 12;
+        let skip = (page - 1) * limit;
         await mongoose.connect(connectionStr);
-        result = await User.find({ user_type: { $ne: "user" } }).populate('branch').sort({ created_at: -1 });
+        result = await User.find({ 
+            user_type: { $ne: "user" } 
+        }).populate('branch').sort({ created_at: -1 }).exec().skip(skip).limit(limit);
     } catch (error) {
         result = error;
     }
