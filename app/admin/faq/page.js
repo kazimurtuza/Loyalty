@@ -1,8 +1,12 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Link from "next/link";
+import Swal from 'sweetalert2';
+
 export default function Dashboard() {
     const [faqList, setFaq] = useState([]);
+
+    const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     const data={
         "title":"",
@@ -23,7 +27,7 @@ export default function Dashboard() {
 
 
     const storeData=async ()=>{
-        const response = await fetch('http://localhost:3000/api/faq', {
+        const response = await fetch(`${$baseUrl}/api/faq/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,19 +38,24 @@ export default function Dashboard() {
         if(responseData.success==true){
             fetchData();
             setStore(data);
-            alert('Successfully Add  FAQ')
+            Swal.fire({
+                title: 'success',
+                text: 'Successfully Add Faq',
+                icon: 'success',
+                // confirmButtonText: 'Cool'
+            })
         }
     }
     const fetchData = async () => {
         // Fetch data from an API or other source
-        const result = await fetch('http://localhost:3000/api/faq');
+        const result = await fetch(`${$baseUrl}/api/faq/`);
         const data = await result.json();
         setFaq(data.data)
     };
 
 
     const deteFaq=async (id)=>{
-        const response = await fetch(`http://localhost:3000/api/faq/${id}`, {
+        const response = await fetch(`${$baseUrl}/api/faq/${id}`, {
             method: 'delete',
             headers: {
                 'Content-Type': 'application/json',
@@ -113,7 +122,7 @@ export default function Dashboard() {
 
             </div>
             <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
-                <h3 className="title">Contact List</h3>
+                <h3 className="title">Faq List</h3>
 
             </div>
             <div className="dashboard-main-content-wrap">
