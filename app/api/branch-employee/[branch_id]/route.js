@@ -1,28 +1,33 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { connectionStr } from "@/lib/db";
-import {Counter} from "@/lib/model/counter";
-import {Admin} from "@/lib/model/admin";
 import { User } from "@/lib/model/users";
-import { branch } from "@/lib/model/branch";
 
-export async function GET(request,content ){
-    let result=[];
-    try{
-        const info = await new URL(request.url)
-        const searchParams = info.searchParams;
-        let page = Number(searchParams.get('page')) || 1;
-        let limit = Number(searchParams.get('limit')) || 12;
-        let skip = (page - 1) * limit;
+export async function GET(request, content) {
+  try {
+    const info = new URL(request.url);
+    const searchParams = info.searchParams;
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 12;
+    const skip = (page - 1) * limit;
 
-        let branchId=content.params.branch_id;
-        console.log(branchId);
-        await mongoose.connect(connectionStr);
-        result = await User.find({'branch':branchId}).sort({ created_at: -1}).skip(skip).limit(limit);
+    const branchId = content.params.branch_id;
+
+    await mongoose.connect(connectionStr);
+
+    let query = {};
+
+    if (branchId) {
+      query = { branch: branchId };
     }
-    catch(error)
-    {
-        result=error.message;
-    }
-    return NextResponse.json(result);
+
+    const users = await User.find(query)
+      .sort({ created_at: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    return NextResponse.json(users);
+  } catch (error) {
+    return NextResponse.json({ error: error.message });
+  }
 }
