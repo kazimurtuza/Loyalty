@@ -7,23 +7,18 @@ export async function POST(request, content) {
   let result = [];
 
   const payload = await request.json();
-  return NextResponse.json({ payload, success: true });
-  try {
-    const id = content.params.id;
-    const filter = { _id: id };
-    const payload = await request.json();
-    // return NextResponse.json(payload.password);
-    await mongoose.connect(connectionStr);
-    let data = await Branch.findById(filter);
 
-    const oldData = data._doc;
+  result = await Branch.findOneAndUpdate(
+    { _id: payload.id },
+    {
+      info: payload.info,
+      name: payload.name,
+      public_key: payload.public_key,
+      screct_key: payload.screct_key,
+      encryption_key: payload.screct_key,
+    }
+  );
 
-    const updatedata = { ...oldData, ...payload };
-    data = await Branch.findById(filter);
-    result = await Branch.findOneAndUpdate(filter, updatedata);
-  } catch (error) {
-    return NextResponse.json({ error: error.message, success: "error found" });
-  }
   return NextResponse.json({ result, success: true });
 }
 
