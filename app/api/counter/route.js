@@ -1,22 +1,37 @@
-import {NextResponse} from "next/server";
+import { AuthUser } from "@/app/helper";
+import { connectionStr } from "@/lib/db";
+import { Counter } from "@/lib/model/counter";
+import { User } from "@/lib/model/users";
 import mongoose from "mongoose";
-import {connectionStr} from "@/lib/db";
-import {Counter} from "@/lib/model/counter";
-import { Branch } from "@/lib/model/branch";
+import { NextResponse } from "next/server";
 
-export async function GET() {
-    let result = [];
-    try {
+export async function GET(request,content ){
+    try{
         await mongoose.connect(connectionStr);
-        result = await Counter.find().populate({
-            path:'branch',
-            model:'Branch'
-        }).sort({ created_at: -1 });
-    } catch (error) {
-        result = error.message;
+        var result=[];
+        var query={};
+        var userInfo=await AuthUser();
+        if(userInfo){
+            var userId=userInfo.id
+            let userData=await User.findById(userId)
+            if('branch-admin'==userData.user_type){
+              query.branch=userData.branch
+            }
+            if('brand-admin'==userData.user_type){
+              query={}
+            }
+        }
+      
+        await mongoose.connect(connectionStr);
+        result = await Counter.find(query).populate('branch')
+    }
+    catch(error)
+    {
+        result=error.message;
     }
     return NextResponse.json(result);
 }
+
 export async function POST(request) {
     let result = [];
     try {

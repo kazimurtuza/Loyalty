@@ -74,7 +74,6 @@ export default function Form() {
                                 </div>
                             </div>
                         </div>
-
                         <div className='form-submit'>
                             <button>Submit</button>
                         </div>

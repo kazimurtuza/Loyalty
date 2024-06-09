@@ -1,8 +1,7 @@
-import {NextResponse} from "next/server";
+import { connectionStr } from "@/lib/db";
+import { Counter } from "@/lib/model/counter";
 import mongoose from "mongoose";
-import {connectionStr} from "@/lib/db";
-import {Counter} from "@/lib/model/counter";
-import { Branch } from "@/lib/model/branch";
+import { NextResponse } from "next/server";
 
 export async function GET(request,content) {
     let result = [];

@@ -22,8 +22,21 @@ export async function GET(request,content) {
         const info = new URL(request.url);
         const searchParams = info.searchParams;
         let date = searchParams.get('date');
-        
-        if (date) {
+        let start_date = searchParams.get('start_date');
+        let end_date = searchParams.get('end_date');
+
+        if(date==null || date=="")
+        {
+            start_date = new Date(start_date);
+            end_date = new Date(end_date);
+
+            query.payment_date = {
+                $gte: start_date,
+                $lte: end_date,
+            };
+
+        }
+        else {
             const dateObj = new Date(date);
             const nextDay = new Date(dateObj);
             nextDay.setDate(dateObj.getDate() + 1);
@@ -34,10 +47,16 @@ export async function GET(request,content) {
             };
         }
        
-        orderInfo =await Order.find(query).populate({
+        orderInfo =await Order.find(query).populate([{
             path:'counter',
             model:'counters'
-        }).sort({created_at:-1});   
+        },
+        {
+            path:'user',
+            model:'users'
+        }
+    
+        ]).sort({created_at:-1});   
         return NextResponse.json({orderInfo,msg,success:true});
 
         
