@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import fetchWithAuth from "@/fetchWithAuth";
 import { getCookie } from "cookies-next";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 export default function Dashboard() {
   const [staffList, setStaffList] = useState(null);
   const branch = getCookie("branch");
@@ -69,7 +69,7 @@ export default function Dashboard() {
           }}
           className="px-4 py-2 mx-1 bg-main text-white rounded"
         >
-          Edit Staff
+          Add Staff
         </Link>
       </div>
       <div className="dashboard-main-content-wrap">

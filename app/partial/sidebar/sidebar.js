@@ -38,13 +38,13 @@ export default function Sidebar() {
                   cssClass="nav__sub-link"
                 />
               )}
-              {usertype == "branch-admin" && (
+              {/* {usertype == "branch-admin" && ( */}
                 <NavItem
                   title="Counter"
                   href="/admin/counter"
                   cssClass="nav__sub-link"
                 />
-              )}
+              {/* )} */}
             </ul>
           </NavGroup>
         </ul>

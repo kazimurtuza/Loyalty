@@ -1,17 +1,22 @@
-import {headers} from "next/headers";
-import jwt from "jsonwebtoken";
-import {NextResponse} from "next/server";
-import {v4 as uuidv4} from "uuid";
-import path from "path";
 import fs from "fs";
+import jwt from "jsonwebtoken";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import path from "path";
+import { v4 as uuidv4 } from "uuid";
 
 export async function AuthUser(){
+    try {
     const headerdata=headers();
     const bearerToken = headerdata.get("authorization");
     const token = bearerToken.split(' ')[1];
     let info=await jwt.decode(token);
-
     return info;
+    }catch (e) {
+        return false;
+    }
+
+
 
 }
 

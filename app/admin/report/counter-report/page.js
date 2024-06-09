@@ -1,9 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { get } from "mongoose";
 import { getCookie } from "cookies-next";
-import fetchWithAuth from "@/fetchWithAuth";
+import { useEffect, useState } from "react";
 export default function Dashboard() {
   const [counterList, setCounterList] = useState(null);
   const [qrValue, setQrValue] = useState("Hello, QR Code!");
@@ -32,16 +29,8 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
-        <h3 className="title">Counter List</h3>
+        <h3 className="title">Counter Report</h3>
 
-        <Link
-          href={{
-            pathname: "/admin/counter/store",
-          }}
-          className="px-4 py-2 mx-1 bg-main text-white rounded"
-        >
-          Add Counter
-        </Link>
       </div>
       <div className="dashboard-main-content-wrap">
         <div className="dashboard-main-content">
@@ -65,7 +54,7 @@ export default function Dashboard() {
                       <td>{item.totalGatewayAmount}</td>
                       <td>{item.totalWalletAmount}</td>
                       <td>{item.totalAmount}</td>
-                      <td>
+                      {/* <td>
                         <a href="#" className="edit-row">
                           <svg
                             width="24"
@@ -84,7 +73,7 @@ export default function Dashboard() {
                           </svg>
                         </a>
 
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
               </tbody>

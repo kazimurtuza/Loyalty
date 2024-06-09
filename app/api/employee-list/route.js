@@ -1,16 +1,28 @@
-import { NextResponse } from "next/server";
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import { User } from "@/lib/model/users";
+import { AuthUser } from "@/app/helper";
 import { connectionStr } from "@/lib/db";
-import validator from "validator/es";
-import { uploadBase64Img } from "@/app/helper";
+import { User } from "@/lib/model/users";
+import mongoose from "mongoose";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   var result;
   await mongoose.connect(connectionStr);
-  result = await User.find().populate("branch");
-  return NextResponse.json({ data: result, success: true });
+
+  let userInfo=await AuthUser();
+
+  let userData=await User.findById(userInfo.id);
+
+  let query={};
+  if('branch-admin'==userData.user_type){
+    query.branch=userData.branch
+  }
+  if('brand-admin'==userData.user_type){
+    query={}
+  }
+   result = await User.find(query).populate("branch");
+   return NextResponse.json({ data: result, success: true });
+
+  return NextResponse.json({ data: userData, success: true });
 
   // let result = [];
   // try {

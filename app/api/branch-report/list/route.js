@@ -1,9 +1,7 @@
-import { NextResponse } from "next/server";
-import mongoose from "mongoose";
 import { connectionStr } from "@/lib/db";
-import { Counter } from "@/lib/model/counter";
 import { Branch } from "@/lib/model/branch";
-import { PaymentSetting } from "@/lib/model/payementSetting";
+import mongoose from "mongoose";
+import { NextResponse } from "next/server";
 
 export async function GET(request, content) {
   await mongoose.connect(connectionStr);

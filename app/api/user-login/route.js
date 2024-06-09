@@ -11,7 +11,6 @@ export async function POST(request) {
         if (!email || !password) {
             return NextResponse.json({msg: 'invalid fields','success':false}, {status: 400});
         }
-
         await mongoose.connect(connectionStr);
         const srcky=process.env.JWT_SECRET
         const record = {email: email};
@@ -20,11 +19,9 @@ export async function POST(request) {
             if(user.is_delete==1) {
                 return NextResponse.json({'msg': 'Account Already Deleted',success:false}, {status: 400});
             }
-
             if(user.status==0) {
                 return NextResponse.json({'msg': 'Account Already Blocked',success:false}, {status: 400});
             }
-
             let id = user.id;
             let is_admin = 1;
             let type = user.user_type;

@@ -1,7 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
 import fetchWithAuth from "@/fetchWithAuth";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 export default function Dashboard() {
   const [orderList, setOrder] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
