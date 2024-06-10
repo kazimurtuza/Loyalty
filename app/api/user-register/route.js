@@ -6,6 +6,9 @@ import {connectionStr} from "@/lib/db";
 import validator from "validator/es";
 import {uploadBase64Img} from "@/app/helper";
 import nodemailer from "nodemailer";
+import ejs from "ejs";
+import fs from "fs";
+import path from "path";
 
 export async function GET() {
 
@@ -69,15 +72,15 @@ export async function POST(request) {
         });
 
 
-        const emailTemplatePath = path.resolve("./app/emails/forget_password.ejs");
+        const emailTemplatePath = path.resolve("./app/emails/account_creation.ejs");
         const emailTemplate = fs.readFileSync(emailTemplatePath, "utf-8");
-        const mailContent = ejs.render(emailTemplate, { name:userInfo.name,date:new Date()});
+        const mailContent = ejs.render(emailTemplate, { name:payload.name,date:new Date()});
 
 
         const mailOptions = {
             from: 'admin@loyaltypaypoints.com',
             to: user.email,
-            subject: "Loyality Account Password Reset",
+            subject: "Loyality Account Creation",
             html: mailContent,
         };
 

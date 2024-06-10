@@ -43,5 +43,5 @@ export async function POST(request) {
         return NextResponse.json(error.message);
     }
 
-    return NextResponse.json({'msg': 'Email or Password is incorrect','success':false}, {status: 200});
+    return NextResponse.json({'msg': 'Email or Password is incorrect','success':false}, {status: 400});
 }

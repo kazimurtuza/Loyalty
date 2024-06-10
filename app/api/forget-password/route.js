@@ -73,7 +73,7 @@ export async function POST(request) {
 
 
              const mailOptions = {
-                from: process.env.EMAIL_USER,
+                from: 'admin@loyaltypaypoints.com',
                 to: email,
                 subject: "Loyality Account Password Reset",
                 html: mailContent,
@@ -93,9 +93,9 @@ export async function POST(request) {
             // Close the MongoDB connection
             await mongoose.connection.close();
 
-            return NextResponse.json({ result: "Password reset email sent successfully.",code:code }, { status: 200 });
+            return NextResponse.json({ msg: "Password reset email sent successfully.",code:code,success:true }, { status: 200 });
         } else {
-            return NextResponse.json({ error: "User not found with the provided email." }, { status: 404 });
+            return NextResponse.json({ msg: "User not found with the provided email.",success:false }, { status: 400 });
         }
     } catch (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });

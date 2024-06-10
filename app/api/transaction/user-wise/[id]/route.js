@@ -19,7 +19,11 @@ export async function GET(request, content) {
         let start_date = searchParams.get('start_date');
         let end_date = searchParams.get('end_date');
 
-        if(date==null || date=="")
+        if((start_date==null || start_date=="") && (date==null || date==""))
+        {
+
+        }
+        else if(date==null || date=="")
         {
             start_date = new Date(start_date);
             end_date = new Date(end_date);
@@ -30,7 +34,7 @@ export async function GET(request, content) {
             };
 
         }
-        else {
+         else {
             const dateObj = new Date(date);
             const nextDay = new Date(dateObj);
             nextDay.setDate(dateObj.getDate() + 1);

@@ -57,29 +57,31 @@ export async function POST(request) {
     
             const notificationSent = await sendNotification(title, body, tokenList);
     
-            if (notificationSent) {
-                console.log('Notification sent successfully');
-            } else {
-                console.error('Failed to send notification');
-            }
+            // if (notificationSent) {
+            //     console.log('Notification sent successfully');
+            // } else {
+            //     console.error('Failed to send notification');
+            // }
         }
 
-        let counterAssingUser= User.findOne({access_counter:payload.counter});
+        let counterAssingUser = await User.findOne({ access_counter: payload.counter });
+
+        console.log(counterAssingUser);
         if(counterAssingUser)
         {
             if(counterAssingUser.device_token && counterAssingUser.is_notification_on==true)
             {
                 const title = 'Order Notification';
                 const body = userInfo.name +' pay '+payload.total_amount+' against your counter';
-                const tokenList = [userInfo.device_token];
-            
+                const tokenList = ['cpmf8k92To6joy5iIaRpzO:APA91bE0JIQt-R562uGT7Z04Du_NZLZyx9qZzoBKtLYkj08Oq24nBK9I-QiwPNofWpHzhmH9aKZcNLEqHDq5KZsPDguncG2zC6CJ6lUi3sU-nfCZklY3AYAmGdxMBR44fldKEVNaYX4d'];
+                console.log(counterAssingUser.device_token);
                 const notificationSent = await sendNotification(title, body, tokenList);
         
-                if (notificationSent) {
-                    console.log('Notification sent successfully');
-                } else {
-                    console.error('Failed to send notification');
-                }
+                // if (notificationSent) {
+                //     console.log('Notification sent successfully');
+                // } else {
+                //     console.error('Failed to send notification');
+                // }
             }
         }
 
@@ -104,7 +106,20 @@ export async function GET(request) {
         let skip = (page - 1) * limit;
 
         await mongoose.connect(connectionStr);
-        var orderList=await Order.find().populate('counter').populate('branch').populate('user').sort({ created_at: -1 }).skip(skip).limit(limit);;
+        var orderList=await Order.find().populate([{
+            path:'counter',
+            model:'counters'
+        },
+        {
+            path:'user',
+            model:'users'
+        },
+        {
+            path:'branch',
+            model:'Branch'
+        }
+    
+        ]).sort({ created_at: -1 }).skip(skip).limit(limit);;
 
         return NextResponse.json({orderList:orderList,success:true});
 

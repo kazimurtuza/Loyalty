@@ -4,23 +4,29 @@ import { User } from "@/lib/model/users";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request) {
   var result;
   await mongoose.connect(connectionStr);
 
-  let userInfo=await AuthUser();
+  const info = await new URL(request.url)
+  const searchParams = info.searchParams;
+  let page = Number(searchParams.get('page')) || 1;
+  let limit = Number(searchParams.get('limit')) || 12;
+  let skip = (page - 1) * limit;
 
-  let userData=await User.findById(userInfo.id);
+  let userInfo = await AuthUser();
 
-  let query={};
-  if('branch-admin'==userData.user_type){
-    query.branch=userData.branch
+  let userData = await User.findById(userInfo.id);
+
+  let query = {};
+  if ("branch-admin" == userData.user_type) {
+    query.branch = userData.branch;
   }
-  if('brand-admin'==userData.user_type){
-    query={}
+  if ("brand-admin" == userData.user_type) {
+    query = {};
   }
-   result = await User.find(query).populate("branch");
-   return NextResponse.json({ data: result, success: true });
+  result = await User.find(query).populate("branch").skip(skip).limit(limit);
+  return NextResponse.json({ data: result, success: true });
 
   return NextResponse.json({ data: userData, success: true });
 

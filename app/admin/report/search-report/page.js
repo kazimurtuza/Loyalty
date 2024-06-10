@@ -79,7 +79,7 @@ export default function Dashboard() {
       setOrder(response.orderList);
     }
 
-    console.log(obj);
+    //console.log(obj);
   };
 
   useEffect(() => {

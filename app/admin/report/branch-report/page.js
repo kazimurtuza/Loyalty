@@ -5,8 +5,7 @@ export default function Dashboard() {
   const [counterList, setCounterList] = useState([]);
   const branch = getCookie("branch");
 
-  const $baseUrl = "http://localhost:3000";
-
+  const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   useEffect(() => {
     const fetchData = async () => {
       // Fetch data from an API or other source

@@ -22,19 +22,19 @@ export async function GET(req) {
         const searchParams = info.searchParams;
         let id = searchParams.get('id');
         console.log(id);
-        var userInfo = await User.findOne({_id:id});
+        // let userInfo = await AuthUser();
+        // console.log(userInfo);
+        // var srcData = {
+        //     $match: {
+        //         branch: new ObjectId(userInfo.branch), // Filtering by branch ID = 20
+        //     }
+        // };
 
-        var srcData = {
-            $match: {
-                branch: new ObjectId(userInfo.branch), // Filtering by branch ID = 20
-            }
-        };
-
-        var src = userInfo.user_type == "branch-admin" ? srcData : "";
-
+        // var src = userInfo.type == "branch-admin" ? srcData : "";
+        // console.log(src);
 
         const totalPayment = await Order.aggregate([
-            src,
+           // src,
             {
                 $group: {
                     _id: null,
@@ -44,7 +44,7 @@ export async function GET(req) {
         ]);
 
         const brandPayment = await Order.aggregate([
-            src,
+            //src,
             {
                 $group: {
                     _id: null,
@@ -54,7 +54,7 @@ export async function GET(req) {
         ]);
       
         const superAdminPayment = await Order.aggregate([
-            src,
+            //src,
             {
                 $group: {
                     _id: null,

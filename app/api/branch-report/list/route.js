@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, content) {
   await mongoose.connect(connectionStr);
+  
   // var result = await Counter.find().populate("counter");
 
   var result = await Branch.aggregate([

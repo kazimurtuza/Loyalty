@@ -91,6 +91,16 @@ export default function Sidebar() {
           </NavGroup>
         </ul>
 
+        {usertype== 'brand-admin' && <ul className="nav__list">
+          <NavGroup title="Ads" href="/admin/ads">
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem title="Ads" href="/admin/ads" cssClass="nav__sub-link" />
+            </ul>
+          </NavGroup>
+        </ul>
+        }
+        
+
         <ul className="nav__list">
           <NavGroup title="Report" href="/admin/faq">
             <ul className="nav__sub-list dropdown-body">

@@ -4,8 +4,8 @@ import { getCookie } from "cookies-next";
 
 export default async function Dashboard() {
   const id = getCookie("authUserId");
-  const dashboard = await fetchWithAuth(`/admin-dashboard?id=${id}`);
-  console.log(id);
+  const dashboard = await fetchWithAuth(`/admin-dashboard`);
+  console.log("hello");
   const today_report = await fetchWithAuth("/dashboard_today_report");
   return (
     <div className="dashboard-content">

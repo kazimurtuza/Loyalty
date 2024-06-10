@@ -41,43 +41,37 @@ export async function uploadBase64Img(image) {
 }
 
 export default async function sendNotification(title, body, tokenList) {
+    const url = 'https://fcm.googleapis.com/fcm/send';
+    const serverKey = 'AAAA3WmLRRM:APA91bHHMEYXDRuak81D3zljzTgbYjvXM6WP2eu0wdhzAAorBFX52bX1sEG2xG6kDgO4Y-fKJBnZNRmmmSfUI94XYyo_bj06Uk_X-QKNhGzfY5wuw82kNPZxLth6IiLJy20M3ITGKTx3'; // ADD SERVER KEY HERE PROVIDED BY FCM
+
+    const data = {
+        registration_ids: tokenList,  // expects an array of tokens
+        notification: {
+            title: title,
+            body: body,
+        },
+    };
+
+    const headers = {
+        Authorization: 'key=' + serverKey,
+        'Content-Type': 'application/json',
+    };
+
     try {
-        const url = 'https://fcm.googleapis.com/fcm/send';
-        const FcmToken = tokenList;
-        const serverKey = 'AAAA3WmLRRM:APA91bHHMEYXDRuak81D3zljzTgbYjvXM6WP2eu0wdhzAAorBFX52bX1sEG2xG6kDgO4Y-fKJBnZNRmmmSfUI94XYyo_bj06Uk_X-QKNhGzfY5wuw82kNPZxLth6IiLJy20M3ITGKTx3'; // ADD SERVER KEY HERE PROVIDED BY FCM
-        
-        const data = {
-            registration_ids: FcmToken,
-            notification: {
-                title: title,
-                body: body,
-            },
-        };
-        
-        const headers = {
-            Authorization: 'key=' + serverKey,
-            'Content-Type': 'application/json',
-        };
-        
-        fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(data),
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log(response);
-            } else {
-                console.error('Failed to send notification');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
         });
-    }
-    catch(error)
-    {
+
+        if (response.ok) {
+            const responseData = await response.json();
+            console.log('Notification sent successfully:', responseData);
+        } else {
+            const errorData = await response.json();
+            console.error('Failed to send notification:', errorData);
+        }
+    } catch (error) {
         console.error('Error:', error);
     }
-
-  }
+}

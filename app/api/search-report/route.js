@@ -34,9 +34,20 @@ export async function POST(request) {
   try {
     await mongoose.connect(connectionStr);
     var orderList = await Order.find(search)
-      .populate("counter")
-      .populate("branch")
-      .populate("user");
+     .populate([{
+            path:'counter',
+            model:'counters'
+    },
+    {
+        path:'user',
+        model:'users'
+    },
+    {
+        path:'branch',
+        model:'Branch'
+    }
+
+    ]);
 
     return NextResponse.json({ orderList: orderList, success: true });
   } catch (e) {
