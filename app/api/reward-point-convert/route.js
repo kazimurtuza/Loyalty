@@ -17,6 +17,7 @@ export async function POST(request) {
     try{
         const payload= await(request.json());
         await mongoose.connect(connectionStr);
+        console.log(payload);
 
         let userInfo=await User.findById(payload.user);
         if(payload.points > userInfo.points)
