@@ -783,7 +783,7 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-content: space-between;
   gap: 50px;
   flex-direction: column;
-  min-height: calc(100vh - 210px);
+  /* min-height: calc(100vh - 210px); */
 }
 
 .dashboard-table-wrap::-webkit-scrollbar {
@@ -963,7 +963,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .dashboard-table-wrap.flex-spb {
-    min-height: calc(100vh - 256px);
+    /* min-height: calc(100vh - 256px); */
   }
 }
 
@@ -1385,4 +1385,26 @@ input[type="number"]::-webkit-outer-spin-button {
   100% {
       transform: rotate(360deg);
   }
+  }
+
+  .staff-store .dashboard-form__field{
+    width: 100%;
+  }
+
+  .file-wrap{
+    padding: 11px 12px;
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 400;
+    font-family: var(--global-font);
+    color: #575757;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #d3dbdf;
+    outline-color: var(--primary-color-alt);
+    background-color: #ffffff;
+  }
+
+  .edit-row{
+    margin-right: 10px;
   }

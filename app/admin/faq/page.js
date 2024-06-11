@@ -1,6 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
-import Link from "next/link";
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
 export default function Dashboard() {
@@ -25,7 +24,6 @@ export default function Dashboard() {
         });
     }
 
-
     const storeData=async ()=>{
         const response = await fetch(`${$baseUrl}/api/faq/`, {
             method: 'POST',
@@ -46,13 +44,13 @@ export default function Dashboard() {
             })
         }
     }
+
     const fetchData = async () => {
         // Fetch data from an API or other source
         const result = await fetch(`${$baseUrl}/api/faq/`);
         const data = await result.json();
         setFaq(data.data)
     };
-
 
     const deteFaq=async (id)=>{
         const response = await fetch(`${$baseUrl}/api/faq/${id}`, {
@@ -70,8 +68,8 @@ export default function Dashboard() {
         })
 
             fetchData();
-
     }
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -105,9 +103,8 @@ export default function Dashboard() {
                             </div>
                             <div className='from-field'>
                                 <label>Description</label>
-                                <div className="select-wrap">
-                                    <textarea   name="details"     value={store.details}     onInput={setData}></textarea>
-                                </div>
+                                    <textarea className='from-element from-element-textarea' name="details" value={store.details}     onInput={setData}></textarea>
+
                             </div>
                         </div>
 
@@ -118,7 +115,6 @@ export default function Dashboard() {
 
                 </div>
             </div>
-
 
             <div className="dashboard-content__topbar topbar flex-ctr">
                 <div className="drawer-open">
@@ -170,9 +166,7 @@ export default function Dashboard() {
                                         </span>
                                     </td>
                                 </tr>))
-
                             }
-
 
                             </tbody>
                         </table>

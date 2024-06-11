@@ -32,7 +32,7 @@
 .form button {
   text-transform: uppercase;
   outline: 0;
-  background: #4CAF50;
+  background: var(--primary-color);
   width: 100%;
   border: 0;
   padding: 15px;
@@ -55,7 +55,7 @@
 }
 
 .form .message a {
-  color: #4CAF50;
+  color: var(--primary-color);
   text-decoration: none;
 }
 

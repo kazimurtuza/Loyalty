@@ -1,7 +1,7 @@
 "use client";
 import fetchWithAuth from "@/fetchWithAuth";
-import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function Form() {
@@ -27,6 +27,7 @@ export default function Form() {
       };
     });
   }
+
   async function getbranch() {
     try {
       const response = await fetchWithAuth(`/branch/${id}`);
@@ -130,13 +131,13 @@ export default function Form() {
             </div>
             <div className="from-field">
               <label>Details</label>
-              <div className="select-wrap">
                 <textarea
+                className="from-element from-element-textarea"
                   name="info"
                   onInput={setData}
                   value={store.info}
                 ></textarea>
-              </div>
+
             </div>
           </div>
 

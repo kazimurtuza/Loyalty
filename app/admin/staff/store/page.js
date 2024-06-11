@@ -1,7 +1,7 @@
 "use client";
-import {useEffect, useState} from "react";
 import fetchWithAuth from "@/fetchWithAuth";
 import { getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 
 export default function Counter() {
@@ -17,6 +17,7 @@ export default function Counter() {
         "user_type":"employee",
         "branch":""
     }
+
     const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const [store,setStore]=useState(data)
     const [branch,setBranch]=useState([])
@@ -39,6 +40,7 @@ export default function Counter() {
             };
         });
     }
+
     const storeData=async ()=>{
         const response = await fetchWithAuth('/user-register', {
             method: 'POST',
@@ -52,13 +54,10 @@ export default function Counter() {
                 icon: 'success',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else
-        {
+        } else {
             alert(response.msg);
         }
     }
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -70,9 +69,6 @@ export default function Counter() {
 
         fetchData();
     }, [$baseUrl]);
-
-
-
 
     return (
         <div className='dashboard-content'>
@@ -89,7 +85,7 @@ export default function Counter() {
             </div>
             <div className='dashboard-main-content-wrap'>
 
-                <div className='dashboard-main-content'>
+                <div className='dashboard-main-content staff-store'>
                     <div className='form-row col-3'>
                         <div className='from-field'>
                             <label>First Name</label>
@@ -133,7 +129,7 @@ export default function Counter() {
                             />
                         </div>
                         {usertype!='branch-admin' &&
-                            <div className="dashboard-form__field select-field">
+                            <div className="dashboard-form__field select-field from-field">
                                 <label>Branch</label>
                                 <select name="branch" id=""    value={branch.branch} onChange={setData} className="select from-element from-element" >
                                     <option value="" >Select</option>
@@ -141,7 +137,8 @@ export default function Counter() {
                                 </select>
                             </div>
                         }
-                        <div className="dashboard-form__field select-field">
+
+                        <div className="dashboard-form__field select-field from-field">
                             <label>User Type</label>
                             <select name="user_type" id=""    value={store.user_type} onChange={setData} className="select from-element from-element" >
                                 <option value="" >Select</option>
