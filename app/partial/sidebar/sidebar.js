@@ -119,7 +119,7 @@ export default function Sidebar() {
             </ul>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
-                title="Search Report"
+                title="Transaction List"
                 href="/admin/report/search-report"
                 cssClass="nav__sub-link"
               />

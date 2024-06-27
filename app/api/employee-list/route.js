@@ -17,16 +17,34 @@ export async function GET(request) {
   let userInfo = await AuthUser();
 
   let userData = await User.findById(userInfo.id);
+  let query = { user_type: { $ne: "user" } };
 
-  let query = {};
-  if ("branch-admin" == userData.user_type) {
+  if (userData.user_type === "branch-admin") {
     query.branch = userData.branch;
+  } else if (userData.user_type === "brand-admin") {
+    query = {}; // Reset query for brand-admin to fetch all users
   }
-  if ("brand-admin" == userData.user_type) {
-    query = {};
+
+
+  
+  result = await User.find(query)
+  .populate("branch").sort({created_at:-1})
+  // .skip(skip)
+  // .limit(limit);
+
+const filteredUsers = [];
+
+for (const user of result) {
+  console.log(user.user_type);
+  if (user.user_type != 'user') {
+    console.log(user.user_type);
+      filteredUsers.push(user);
   }
-  result = await User.find(query).populate("branch").skip(skip).limit(limit);
-  return NextResponse.json({ data: result, success: true });
+}
+// Apply skip and limit to the filtered users
+const skippedUsers = filteredUsers.slice(skip, skip + limit);
+
+  return NextResponse.json({ data: skippedUsers, success: true });
 
   return NextResponse.json({ data: userData, success: true });
 

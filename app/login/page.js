@@ -36,6 +36,10 @@ export default function Login() {
         const dataResponse = data;
         console.log(data);
 
+        if(dataResponse)
+            {
+                
+            }
 
         if (dataResponse.success==true) {
             // setCookie("authUserType", data.user.user_type);
@@ -50,6 +54,7 @@ export default function Login() {
         } else {
             setErrorMessage(data.msg);
         }
+
 
         setIsLoading(false);
 
