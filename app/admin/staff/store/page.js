@@ -46,17 +46,30 @@ export default function Counter() {
             method: 'POST',
             body: JSON.stringify(store), // Replace with your data
         });
-        if(response.success==true){
-            setStore(data)
+        if(response)
+        {
+            if(response.success==true){
+                setStore(data)
+                Swal.fire({
+                    title: 'success',
+                    text: 'Successfully Add Staff',
+                    icon: 'success',
+                    // confirmButtonText: 'Cool'
+                })
+            } else {
+                alert(response.msg);
+            }
+        }
+        else
+        {
             Swal.fire({
-                title: 'success',
-                text: 'Successfully Add Staff',
-                icon: 'success',
+                title: 'Error',
+                text: 'Already Registered',
+                icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        } else {
-            alert(response.msg);
         }
+       
     }
 
     useEffect(() => {
