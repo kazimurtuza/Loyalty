@@ -12,8 +12,8 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const dashboard = await fetchWithAuth(`admin-dashboard`);
-        const today_report = await fetchWithAuth("dashboard_today_report");
+        const dashboard = await fetchWithAuth(`/admin-dashboard`);
+        const today_report = await fetchWithAuth("/dashboard_today_report");
         setDashboardData(dashboard.data);
         setTodayReport(today_report.data);
       } catch (error) {
