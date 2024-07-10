@@ -37,7 +37,7 @@ export default function Dashboard() {
                 <tr>
                   <th>ID</th>
                   <th>Counter Name</th>
-                  <th>Total Gateway Amoun</th>
+                  <th>Total Gateway Amount</th>
                   <th>Total Wallet Amount</th>
                   <th>Total Amount</th>
                 </tr>

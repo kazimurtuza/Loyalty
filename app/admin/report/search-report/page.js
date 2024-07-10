@@ -77,6 +77,8 @@ export default function Dashboard() {
             body: JSON.stringify(data), // Replace with your data
         });
 
+        console.log(response);
+
         if (response.success == true) {
             setOrder(response.orderList);
         }

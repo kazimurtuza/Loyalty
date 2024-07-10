@@ -21,13 +21,19 @@ export async function POST(request) {
     search.branch = branchId;
   }
   if (startDate && endDate) {
-    const formattedStartDate = dateFormate(startDate);
-    const formattedEndDate = dateFormate(endDate);
-    search = {
-      payment_date: {
-        $gte: formattedStartDate,
-        $lte: formattedEndDate,
-      },
+    console.log("Start date is " + startDate);
+    console.log("End date is " + endDate);
+    
+    // Assuming dateFormate returns dates in 'MM/DD/YYYY' format
+    const formattedStartDate = new Date(dateFormate(startDate));
+    const formattedEndDate = new Date(dateFormate(endDate));
+  
+    console.log("Formatted start date is " + formattedStartDate);
+    console.log("Formatted end date is " + formattedEndDate);
+  
+    search.created_at = {
+      $gte: startDate,
+      $lte: endDate,
     };
   }
 
