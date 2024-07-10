@@ -77,7 +77,7 @@ export default function Login() {
     <div className="user-page login-page">
       <div className="form">
         <img
-          src="https://res.cloudinary.com/daqxhckof/image/upload/v1711965390/Loyality/lpp-logo_xywtvd.jpg"
+          src="https://res.cloudinary.com/daqxhckof/image/upload/v1720603791/Loyality/LoyaltyPayPoints_utpc3d.png"
           width={150}
           alt="logo-light"
         />
