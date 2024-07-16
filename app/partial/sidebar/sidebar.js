@@ -28,9 +28,24 @@ export default function Sidebar() {
         <ul className="nav__list">
           <NavItem title="Dashboard" href="/admin/dashboard" />
 
+          {usertype == "brand-admin" && (
+            <ul className="nav__list">
+              <NavGroup title="Brand" href="/admin/brand">
+                <ul className="nav__sub-list dropdown-body">
+                  <NavItem
+                    title="Brand"
+                    href="/admin/brand"
+                    cssClass="nav__sub-link"
+                  />
+                </ul>
+              </NavGroup>
+            </ul>
+          )}
+
           <NavGroup title="Branch Counter" href="/admin/branch">
             <ul className="nav__sub-list dropdown-body">
               {/* usertype wise branch */}
+
               {usertype == "brand-admin" && (
                 <NavItem
                   title="Branch"
@@ -39,11 +54,11 @@ export default function Sidebar() {
                 />
               )}
               {/* {usertype == "branch-admin" && ( */}
-                <NavItem
-                  title="Counter"
-                  href="/admin/counter"
-                  cssClass="nav__sub-link"
-                />
+              <NavItem
+                title="Counter"
+                href="/admin/counter"
+                cssClass="nav__sub-link"
+              />
               {/* )} */}
             </ul>
           </NavGroup>
@@ -91,15 +106,19 @@ export default function Sidebar() {
           </NavGroup>
         </ul>
 
-        {usertype== 'brand-admin' && <ul className="nav__list">
-          <NavGroup title="Ads" href="/admin/ads">
-            <ul className="nav__sub-list dropdown-body">
-              <NavItem title="Ads" href="/admin/ads" cssClass="nav__sub-link" />
-            </ul>
-          </NavGroup>
-        </ul>
-        }
-        
+        {usertype == "brand-admin" && (
+          <ul className="nav__list">
+            <NavGroup title="Ads" href="/admin/ads">
+              <ul className="nav__sub-list dropdown-body">
+                <NavItem
+                  title="Ads"
+                  href="/admin/ads"
+                  cssClass="nav__sub-link"
+                />
+              </ul>
+            </NavGroup>
+          </ul>
+        )}
 
         <ul className="nav__list">
           <NavGroup title="Report" href="/admin/faq">

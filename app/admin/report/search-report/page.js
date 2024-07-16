@@ -89,7 +89,15 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchData = async () => {
             // Fetch data from an API or other source
-            const data = await fetchWithAuth(`order?page=${currentPage}`);
+            const data = await fetchWithAuth(`search-report?page=${currentPage}`,
+                {
+                    method: "POST",
+                    body: JSON.stringify(""), 
+                }
+            );
+            console.log("finf something");
+            console.log(data.orderList);
+            console.log("finf something");
             setOrder(data.orderList);
         };
         branchData();
@@ -191,9 +199,13 @@ export default function Dashboard() {
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             <td>
-                                                {convertDateFormat(
-                                                    item.created_at
-                                                )}
+                                              
+                                                {
+                                                     convertDateFormat(
+                                                         item.created_at
+                                                     )
+     
+                                                }
                                             </td>
                                             <td>
                                                 {item.branch &&
@@ -255,7 +267,7 @@ export default function Dashboard() {
                             </tbody>
                         </table>
 
-                        <div
+                        {/* <div
                             className='pagination'
                             style={{ textAlign: "center" }}
                         >
@@ -279,7 +291,8 @@ export default function Dashboard() {
                             >
                                 Next
                             </button>
-                        </div>
+                        </div> */}
+                        
                     </div>
                 </div>
             </div>

@@ -172,7 +172,7 @@ export default function Dashboard() {
                         </table>
 
                         <div className="dashboard-table-pagination flex-ctr-spb">
-                            <form action="#" className="flex-ctr show-rows">
+                            {/* <form action="#" className="flex-ctr show-rows">
                                 <label htmlFor="show-rows" className="label">Show Rows</label>
                                 <div className="show-rows__field">
                                     <select name="load-more" className="select" id="show-rows">
@@ -195,8 +195,8 @@ export default function Dashboard() {
                                         />
                                     </svg>
                                 </button>
-                            </form>
-                            <ul className="dashboard-table-pagination__list flex-ctr">
+                            </form> */}
+                            {/* <ul className="dashboard-table-pagination__list flex-ctr">
                                 <li>
                                     <a href="#">
                                         <svg
@@ -244,7 +244,7 @@ export default function Dashboard() {
                                         </svg>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 </div>
