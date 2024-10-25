@@ -1,55 +1,66 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import fetchWithAuth from "@/fetchWithAuth";
 export default function Dashboard() {
-    const [contactList, setContact] = useState([]);
+  const [contactList, setContact] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetch data from an API or other source
+      const result = await fetchWithAuth("contact");
+      setContact(result.data);
+    };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            // Fetch data from an API or other source
-            const result = await fetchWithAuth('contact');
-            setContact(result.data)
-        };
+    fetchData();
+  }, []);
+  return (
+    <div className="dashboard-content">
+      <div className="dashboard-content__topbar topbar flex-ctr">
+        <div className="drawer-open">
+          <span className="slice-top"></span>
+          <span className="slice-middle"></span>
+          <span className="slice-bottom"></span>
+        </div>
+      </div>
+      <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
+        <h3 className="title">Contact List</h3>
+      </div>
+      <div className="dashboard-main-content-wrap">
+        <div className="dashboard-main-content">
+          <div className="dashboard-table-wrap flex-spb">
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {contactList &&
+                  contactList.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>
+                        {item.first_name} {item.last_name}
+                      </td>
+                      <td>{item.email}</td>
 
-        fetchData();
-    }, []);
-    return (
-        <div className="dashboard-content">
-            <div className="dashboard-content__topbar topbar flex-ctr">
-                <div className="drawer-open">
-                    <span className="slice-top"></span>
-                    <span className="slice-middle"></span>
-                    <span className="slice-bottom"></span>
-                </div>
-
-            </div>
-            <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
-                <h3 className="title">Contact List</h3>
-
-            </div>
-            <div className="dashboard-main-content-wrap">
-                <div className="dashboard-main-content">
-                    <div className="dashboard-table-wrap flex-spb">
-                        <table className="dashboard-table">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Message</th>
-                                {/* <th>Action</th> */}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                contactList &&  contactList.map((item,index)=> (<tr key={index}>
-                                    <td>{index+1}</td>
-                                    <td>{item.first_name}  {item.last_name}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.message}</td>
-                                    {/* <td>
+                      <td>
+                        <Link
+                          href={{
+                            pathname: "/admin/contact/details",
+                            query: { id: item._id }, // Add your parameters here
+                          }}
+                          className="px-4 py-2 mx-1 bg-main text-white rounded"
+                        >
+                         Details
+                        </Link>
+                        
+                      </td>
+                      {/* <td>
                                         <a href="#" className="edit-row">
                                             <svg
                                                 width="24"
@@ -85,18 +96,13 @@ export default function Dashboard() {
                                             </svg>
                                         </a>
                                     </td> */}
-                                </tr>))
-
-                            }
-
-
-                            </tbody>
-                        </table>
-
-                       
-                    </div>
-                </div>
-            </div>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
