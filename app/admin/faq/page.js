@@ -1,178 +1,188 @@
 "use client";
-import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function Dashboard() {
-    const [faqList, setFaq] = useState([]);
+  const [faqList, setFaq] = useState([]);
 
-    const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-    const data={
-        "title":"",
-        "details":""
+  const data = {
+    title: "",
+    details: "",
+  };
+
+  const [store, setStore] = useState(data);
+
+  function setData(e) {
+    const { name, value } = e.target;
+    setStore((old) => {
+      return {
+        ...old, // Spread the previous state
+        [name]: value, // Update the state with the new key-value pair
+      };
+    });
+  }
+
+  const storeData = async () => {
+    const response = await fetch(`${$baseUrl}/api/faq/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(store), // Replace with your data
+    });
+    const responseData = await response.json();
+    if (responseData.success == true) {
+      fetchData();
+      setStore(data);
+      Swal.fire({
+        title: "success",
+        text: "Successfully Add Faq",
+        icon: "success",
+        // confirmButtonText: 'Cool'
+      });
     }
+  };
 
-    const [store,setStore]=useState(data)
+  const fetchData = async () => {
+    // Fetch data from an API or other source
+    const result = await fetch(`${$baseUrl}/api/faq/`);
+    const data = await result.json();
+    setFaq(data.data);
+  };
 
-    function  setData(e){
-        const {name, value} = e.target;
-        setStore(old => {
-            return {
-                ...old,  // Spread the previous state
-                [name]: value  // Update the state with the new key-value pair
-            };
-        });
-    }
+  const deteFaq = async (id) => {
+    const response = await fetch(`${$baseUrl}/api/faq/${id}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    const storeData=async ()=>{
-        const response = await fetch(`${$baseUrl}/api/faq/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(store), // Replace with your data
-        });
-        const responseData = await response.json();
-        if(responseData.success==true){
-            fetchData();
-            setStore(data);
-            Swal.fire({
-                title: 'success',
-                text: 'Successfully Add Faq',
-                icon: 'success',
-                // confirmButtonText: 'Cool'
-            })
-        }
-    }
+    Swal.fire({
+      title: "success",
+      text: "Successfully Delete Faq",
+      icon: "success",
+      // confirmButtonText: 'Cool'
+    });
 
-    const fetchData = async () => {
-        // Fetch data from an API or other source
-        const result = await fetch(`${$baseUrl}/api/faq/`);
-        const data = await result.json();
-        setFaq(data.data)
-    };
+    fetchData();
+  };
 
-    const deteFaq=async (id)=>{
-        const response = await fetch(`${$baseUrl}/api/faq/${id}`, {
-            method: 'delete',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        Swal.fire({
-            title: 'success',
-            text: 'Successfully Delete Faq',
-            icon: 'success',
-            // confirmButtonText: 'Cool'
-        })
-
-            fetchData();
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-    return (
-        <div className="dashboard-content">
-
-            <div >
-                <div className='dashboard-content__topbar topbar flex-ctr'>
-                    <div className='drawer-open'>
-                        <span className='slice-top'></span>
-                        <span className='slice-middle'></span>
-                        <span className='slice-bottom'></span>
-                    </div>
+  useEffect(() => {
+    fetchData();
+  }, []);
+  return (
+    <div className="dashboard-content">
+      <div>
+        <div className="dashboard-content__topbar topbar flex-ctr">
+          <div className="drawer-open">
+            <span className="slice-top"></span>
+            <span className="slice-middle"></span>
+            <span className="slice-bottom"></span>
+          </div>
+        </div>
+        <div className="dashboard-content__title-bar title-bar">
+          <h3 className="title">FAQ Add</h3>
+        </div>
+        <div className="dashboard-main-content-wrap">
+          <div className="">
+            <div className="form-card">
+              <div className="card-body">
+                <div className="form-group row">
+                  <label className="col-md-3 col-from-label">Title</label>
+                  <div className="col-md-8">
+                    <input
+                      name="title"
+                      value={store.title}
+                      className="from-element from-element-text form-control"
+                      onInput={setData}
+                      type="text"
+                    />
+                  </div>
                 </div>
-                <div className='dashboard-content__title-bar title-bar'>
-                    <h3 className='title'>FAQ Add</h3>
+                <div className="form-group row">
+                  <label className="col-md-3 col-from-label">Description</label>
+                  <div className="col-md-8">
+                    <textarea
+                      className="from-element from-element-textarea form-control"
+                      name="details"
+                      value={store.details}
+                      onInput={setData}
+                    ></textarea>
+                  </div>
                 </div>
-                <div className='dashboard-main-content-wrap'>
 
-                    <div>
-                        <div className='form-row col-3'>
-                            <div className='from-field'>
-                                <label>Title</label>
-                                <input
-                                    name="title"
-                                    value={store.title}
-                                    className='from-element from-element-text'
-                                    onInput={setData}
-                                    type='text'
-                                />
-                            </div>
-                            <div className='from-field'>
-                                <label>Description</label>
-                                    <textarea className='from-element from-element-textarea' name="details" value={store.details}     onInput={setData}></textarea>
-
-                            </div>
-                        </div>
-
-                        <div className='form-submit'>
-                            <button onClick={(e)=>storeData(e)}>Submit</button>
-                        </div>
-                    </div>
-
+                <div className="form-group row">
+                  <div className="form-submit col-md-8 col-md-offset-3">
+                    <button onClick={(e) => storeData(e)}>Submit</button>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div className="dashboard-content__topbar topbar flex-ctr">
-                <div className="drawer-open">
-                    <span className="slice-top"></span>
-                    <span className="slice-middle"></span>
-                    <span className="slice-bottom"></span>
-                </div>
+      <div className="dashboard-content__topbar topbar flex-ctr">
+        <div className="drawer-open">
+          <span className="slice-top"></span>
+          <span className="slice-middle"></span>
+          <span className="slice-bottom"></span>
+        </div>
+      </div>
+      <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
+        <h3 className="title">Faq List</h3>
+      </div>
+      <div className="dashboard-main-content-wrap">
+        <div className="dashboard-main-content">
+          <div className="dashboard-table-wrap flex-spb">
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Details</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {faqList &&
+                  faqList.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.title}</td>
+                      <td>{item.details}</td>
+                      <td>
+                        <span
+                          onClick={() => deteFaq(item._id)}
+                          className="delete-row"
+                        >
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M14.74 8.99997L14.394 18M9.606 18L9.26 8.99997M19.228 5.78997C19.57 5.84197 19.91 5.89697 20.25 5.95597M19.228 5.78997L18.16 19.673C18.1164 20.2382 17.8611 20.7661 17.445 21.1512C17.029 21.5363 16.4829 21.7501 15.916 21.75H8.084C7.5171 21.7501 6.97102 21.5363 6.55498 21.1512C6.13894 20.7661 5.88359 20.2382 5.84 19.673L4.772 5.78997M19.228 5.78997C18.0739 5.61549 16.9138 5.48307 15.75 5.39297M4.772 5.78997C4.43 5.84097 4.09 5.89597 3.75 5.95497M4.772 5.78997C5.92613 5.61549 7.08623 5.48307 8.25 5.39297M15.75 5.39297V4.47697C15.75 3.29697 14.84 2.31297 13.66 2.27597C12.5536 2.24061 11.4464 2.24061 10.34 2.27597C9.16 2.31297 8.25 3.29797 8.25 4.47697V5.39297M15.75 5.39297C13.2537 5.20005 10.7463 5.20005 8.25 5.39297"
+                              stroke="#545454"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
 
-            </div>
-            <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
-                <h3 className="title">Faq List</h3>
-
-            </div>
-            <div className="dashboard-main-content-wrap">
-                <div className="dashboard-main-content">
-                    <div className="dashboard-table-wrap flex-spb">
-                        <table className="dashboard-table">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Details</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                faqList &&  faqList.map((item,index)=> (<tr key={index}>
-                                    <td>{index+1}</td>
-                                    <td>{item.title}</td>
-                                    <td>{item.details}</td>
-                                    <td>
-                                        <span onClick={()=>deteFaq(item._id)} className="delete-row">
-                                            <svg
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M14.74 8.99997L14.394 18M9.606 18L9.26 8.99997M19.228 5.78997C19.57 5.84197 19.91 5.89697 20.25 5.95597M19.228 5.78997L18.16 19.673C18.1164 20.2382 17.8611 20.7661 17.445 21.1512C17.029 21.5363 16.4829 21.7501 15.916 21.75H8.084C7.5171 21.7501 6.97102 21.5363 6.55498 21.1512C6.13894 20.7661 5.88359 20.2382 5.84 19.673L4.772 5.78997M19.228 5.78997C18.0739 5.61549 16.9138 5.48307 15.75 5.39297M4.772 5.78997C4.43 5.84097 4.09 5.89597 3.75 5.95497M4.772 5.78997C5.92613 5.61549 7.08623 5.48307 8.25 5.39297M15.75 5.39297V4.47697C15.75 3.29697 14.84 2.31297 13.66 2.27597C12.5536 2.24061 11.4464 2.24061 10.34 2.27597C9.16 2.31297 8.25 3.29797 8.25 4.47697V5.39297M15.75 5.39297C13.2537 5.20005 10.7463 5.20005 8.25 5.39297"
-                                                    stroke="#545454"
-                                                    strokeWidth="1.5"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                />
-                                            </svg>
-                                        </span>
-                                    </td>
-                                </tr>))
-                            }
-
-                            </tbody>
-                        </table>
-
-                        <div className="dashboard-table-pagination flex-ctr-spb">
-                            {/* <form action="#" className="flex-ctr show-rows">
+            <div className="dashboard-table-pagination flex-ctr-spb">
+              {/* <form action="#" className="flex-ctr show-rows">
                                 <label htmlFor="show-rows" className="label">Show Rows</label>
                                 <div className="show-rows__field">
                                     <select name="load-more" className="select" id="show-rows">
@@ -196,7 +206,7 @@ export default function Dashboard() {
                                     </svg>
                                 </button>
                             </form> */}
-                            {/* <ul className="dashboard-table-pagination__list flex-ctr">
+              {/* <ul className="dashboard-table-pagination__list flex-ctr">
                                 <li>
                                     <a href="#">
                                         <svg
@@ -245,10 +255,10 @@ export default function Dashboard() {
                                     </a>
                                 </li>
                             </ul> */}
-                        </div>
-                    </div>
-                </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

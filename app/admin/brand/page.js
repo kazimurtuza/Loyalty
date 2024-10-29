@@ -25,7 +25,7 @@ export default function Form() {
           ...prevData,
           name: result.data.name,
           logo: result.data.logo,
-          previous_logo:result.data.logo,
+          previous_logo: result.data.logo,
         }));
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -60,7 +60,7 @@ export default function Form() {
       setStore((prevStore) => ({
         ...prevStore,
         [name]: value,
-        logo:null
+        logo: null,
       }));
     }
   };
@@ -114,36 +114,54 @@ export default function Form() {
       </div>
       <div className="dashboard-main-content-wrap">
         <div className="dashboard-main-content">
-          <form onSubmit={storeData}>
-            <div className="form-row col-3">
-              <div className="from-field">
-                <label>Previous Logo</label>
-                <img src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${store.previous_logo}`} width="100" alt="Previous Logo" />
+          <form onSubmit={storeData} className="form-card">
+            {/* form-row col-3 */}
+            <div className="card-body">
+              {/* from-field */}
+              <div className="form-group row">
+                <label className="col-md-3 col-from-label">Previous Logo</label>
+                <div className="col-md-8">
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${store.previous_logo}`}
+                    width="100"
+                    alt="Previous Logo"
+                  />
+                </div>
               </div>
-              <div className="from-field">
-                <label>Name</label>
-                <input
-                  name="name"
-                  className="from-element from-element-text"
-                  value={store.name}
-                  onChange={handleChange}
-                  type="text"
-                  required
-                />
+              {/* from-field */}
+              <div className=" form-group row">
+                <label className="col-md-3 col-from-label">Name</label>
+                <div className="col-md-8">
+                  <input
+                    name="name"
+                    //add=> form-control
+                    className="from-element from-element-text form-control"
+                    value={store.name}
+                    onChange={handleChange}
+                    type="text"
+                    required
+                  />
+                </div>
               </div>
-
-              <div className="from-field">
-                <label>New Logo</label>
-                <input
-                  name="logo"
-                  className="from-element from-element-text"
-                  onChange={handleChange}
-                  type="file"
-                />
+              {/* from-field   */}
+              <div className="form-group row">
+                <label className="col-md-3 col-from-label">New Logo</label>
+                <div className="col-md-8">
+                  <input
+                    name="logo"
+                    //add=> form-control
+                    className="from-element from-element-text form-control"
+                    onChange={handleChange}
+                    type="file"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="form-submit">
-              <button type="submit">Submit</button>
+              <div className="form-group row">
+                {/* add=> col-md-8 col-md-offset-3  */}
+                <div className="form-submit col-md-8 col-md-offset-3 ">
+                  <button type="submit">Submit</button>
+                </div>
+              </div>
             </div>
           </form>
         </div>
