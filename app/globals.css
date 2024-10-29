@@ -343,6 +343,18 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .nav__sub-list .nav__sub-link {
   padding-left: 50px;
+  position: relative;
+}
+
+.nav__sub-list .nav__sub-link::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 25px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background-color: #fff;
 }
 
 .nav__sub-link {
