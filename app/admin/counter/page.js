@@ -1,99 +1,98 @@
 "use client";
-import { getCookie } from 'cookies-next';
+import { getCookie } from "cookies-next";
 import Link from "next/link";
-import { useEffect, useState } from 'react';
-import QRCodeComponent from '../QRCodeComponent';
+import { useEffect, useState } from "react";
+import QRCodeComponent from "../QRCodeComponent";
 export default function Dashboard() {
-    const [counterList, setCounterList] = useState(null);
-    const [qrValue, setQrValue] = useState('Hello, QR Code!');
-    const branch = getCookie("branch");
+  const [counterList, setCounterList] = useState(null);
+  const [qrValue, setQrValue] = useState("Hello, QR Code!");
+  const branch = getCookie("branch");
 
-    const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const $baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-    useEffect(() => {
-        const fetchData = async () => {
-            // Fetch data from an API or other source
-            const result = await fetch(`${$baseUrl}/api/counter`);
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetch data from an API or other source
+      const result = await fetch(`${$baseUrl}/api/counter`);
 
-            const data = await result.json();
-            setCounterList(data)
-        };
+      const data = await result.json();
+      setCounterList(data);
+    };
 
-        fetchData();
-    }, []);
-    return (
-        <div className="dashboard-content">
-            <div className="dashboard-content__topbar topbar flex-ctr">
-                <div className="drawer-open">
-                    <span className="slice-top"></span>
-                    <span className="slice-middle"></span>
-                    <span className="slice-bottom"></span>
-                </div>
-            </div>
-            <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
-                <h3 className="title">Counter List</h3>
+    fetchData();
+  }, []);
+  return (
+    <div className="dashboard-content">
+      <div className="dashboard-content__topbar topbar flex-ctr">
+        <div className="drawer-open">
+          <span className="slice-top"></span>
+          <span className="slice-middle"></span>
+          <span className="slice-bottom"></span>
+        </div>
+      </div>
+      <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
+        <h3 className="title">Counter List</h3>
 
+        <Link
+          href={{
+            pathname: "/admin/counter/store",
+          }}
+          className="px-4 py-2 mx-1 bg-main text-white rounded"
+        >
+          Add Counter
+        </Link>
+      </div>
+      <div className="dashboard-main-content-wrap">
+        <div className="dashboard-main-content">
+          <div className="dashboard-table-wrap flex-spb">
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Counter Name</th>
+                  <th>Counter Branch</th>
+                  <th>Counter No</th>
+                  <th>Counter Info</th>
+                  <th>QR Code</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {counterList &&
+                  counterList.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.name}</td>
+                      <td>{item.branch.name}</td>
+                      <td>{item.counter_no}</td>
+                      <td className="max-width-200">{item.branch.info}</td>
+                      <td>
+                        <QRCodeComponent
+                          value={"LoyaltyPoints:" + item._id.toString()}
+                        />
+                      </td>
+                      <td className="status">
+                        {item.branch.status ? "Active" : "Inactive"}
+                      </td>
+                      <td>
+                        <Link
+                          href={{
+                            pathname: "/admin/counter/edit",
+                            query: { id: item._id }, // Add your parameters here
+                          }}
+                          className="px-4 py-2 mx-1 bg-main text-white rounded"
+                        >
+                          Edit
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
 
-                <Link
-                    href={{
-                        pathname: "/admin/counter/store",
-                    }}
-                    className='px-4 py-2 mx-1 bg-main text-white rounded'
-                >
-                    Add Counter
-                </Link>
-            </div>
-            <div className="dashboard-main-content-wrap">
-                <div className="dashboard-main-content">
-                    <div className="dashboard-table-wrap flex-spb">
-                        <table className="dashboard-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Counter Name</th>
-                                    <th>Counter Branch</th>
-                                    <th>Counter No</th>
-                                    <th>Counter Info</th>
-                                    <th>QR Code</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    counterList && counterList.map((item, index) => (<tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.branch.name}</td>
-                                        <td>{item.counter_no}</td>
-                                        <td>{item.branch.info}</td>
-                                        <td>
-                                            <QRCodeComponent value={'LoyaltyPoints:' + item._id.toString()} />
-                                        </td>
-                                        <td className="status">{item.branch.status ? "Active" : "Inactive"}</td>
-                                        <td>
-                                            <Link
-                                                href={{
-                                                    pathname: "/admin/counter/edit",
-                                                    query: { id: item._id }, // Add your parameters here
-                                                }}
-                                                className="px-4 py-2 mx-1 bg-main text-white rounded"
-                                            >
-                                                Edit
-                                            </Link>
-
-
-                                        </td>
-                                    </tr>))
-
-                                }
-
-
-                            </tbody>
-                        </table>
-
-                        <div className="dashboard-table-pagination flex-ctr-spb">
-                            {/* <form action="#" className="flex-ctr show-rows">
+            <div className="dashboard-table-pagination flex-ctr-spb">
+              {/* <form action="#" className="flex-ctr show-rows">
                                 <label htmlFor="show-rows" className="label">Show Rows</label>
                                 <div className="show-rows__field">
                                     <select name="load-more" className="select" id="show-rows">
@@ -166,10 +165,10 @@ export default function Dashboard() {
                                     </a>
                                 </li>
                             </ul> */}
-                        </div>
-                    </div>
-                </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

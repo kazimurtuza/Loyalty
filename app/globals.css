@@ -1419,3 +1419,10 @@ input[type="number"]::-webkit-outer-spin-button {
 .edit-row {
   margin-right: 10px;
 }
+
+.max-width-200 {
+  max-width: 200px;
+  white-space: wrap !important;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
