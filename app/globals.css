@@ -291,6 +291,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .nav-panel {
   max-height: 100%;
   padding-top: 2px;
+  padding-bottom: 55px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #4d6486 var(--dark-color);
