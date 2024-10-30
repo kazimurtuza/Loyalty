@@ -45,6 +45,7 @@ export default function Sidebar() {
                 <rect x="3" y="14" width="7" height="7"></rect>
               </svg>
             }
+
             title="Dashboard"
             href="/admin/dashboard"
           />
@@ -68,6 +69,7 @@ export default function Sidebar() {
                     <path d="M3 16h18" />
                   </svg>
                 }
+
                 title="Brand"
                 href="/admin/brand"
               >
@@ -99,6 +101,7 @@ export default function Sidebar() {
                 <path d="M7 17l4-4 4 4 4-4" />
               </svg>
             }
+
             title="Branch Counter"
             href="/admin/branch"
           >
@@ -142,6 +145,7 @@ export default function Sidebar() {
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
               </svg>
             }
+
             title="Staff List"
             href="/admin/staff"
           >
@@ -164,13 +168,18 @@ export default function Sidebar() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="1"
+                stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path d="M5 4h4l2 5l-2.5 1.5c1.5 3 4 5.5 7 7L17 15l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <circle cx="9" cy="10" r="2" />
+                <path d="M15 8h3" />
+                <path d="M15 12h3" />
+                <path d="M6 16h12" />
               </svg>
             }
+
             title="Contact"
             href="/admin/contact"
           >
@@ -203,6 +212,7 @@ export default function Sidebar() {
                 <path d="M16 10a4 4 0 0 1-8 0" />
               </svg>
             }
+
             title="Order"
             href="/admin/order"
           >
@@ -235,6 +245,7 @@ export default function Sidebar() {
                 <line x1="12" y1="17" x2="12.01" y2="17" />
               </svg>
             }
+
             title="FAQ"
             href="/admin/faq"
           >
@@ -264,6 +275,7 @@ export default function Sidebar() {
                   <circle cx="12" cy="12" r="2" />
                 </svg>
               }
+
               title="Ads"
               href="/admin/ads"
             >
@@ -299,6 +311,7 @@ export default function Sidebar() {
                 <line x1="10" y1="9" x2="8" y2="9" />
               </svg>
             }
+
             title="Report"
             href="/admin/faq"
           >
