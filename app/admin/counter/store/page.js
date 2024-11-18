@@ -81,13 +81,13 @@ export default function Counter() {
                   />
                 </div>
               </div>
-              {/* <div className="dashboard-form__field select-field">
+              <div className="form-group row">
                             <label  className="col-md-3 col-from-label">Branch</label>
-                            <select name="branch" id=""    value={branch?branch.branch:""} onChange={setData} className="select from-element from-element" >
+                            <select class="form-select" name="branch" id=""    value={branch?branch.branch:""} onChange={setData} className="select from-element from-element" >
                                 <option value="" >Select</option>
                                 {branch && branch.map(item=>( <option value={item._id} >{item.name}</option>))}
                             </select>
-                        </div> */}
+                        </div>
               <div className="form-group row">
                 <label className="col-md-3 col-from-label">Details</label>
                 <div className="col-md-8">
