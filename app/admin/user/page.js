@@ -62,7 +62,6 @@ export default function Dashboard() {
       </div>
       <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
         <h3 className="title">User List</h3>
-
       </div>
       <div className="dashboard-main-content-wrap">
         <div className="dashboard-main-content">
@@ -82,30 +81,61 @@ export default function Dashboard() {
               <tbody>
                 {staffList &&
                   staffList.map((item, index) => {
-                      return (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>{item.name}</td>
-                          <td>{item.phone}</td>
-                          <td>{item.email}</td>
-                          <td>{item.user_type}</td>
-                          <td className="status">
-                            {item.status ? "Active" : "Inactive"}
-                          </td>
-                          <td>
-                            <Link
-                              href={{
-                                pathname: "/admin/staff/edit",
-                                query: { id: item._id }, // Add your parameters here
-                              }}
-                              className="px-4 py-2 mx-1 bg-main text-white rounded"
+                    return (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.phone}</td>
+                        <td>{item.email}</td>
+                        <td>{item.user_type}</td>
+                        <td className="status">
+                          {item.status ? "Active" : "Inactive"}
+                        </td>
+                        <td>
+                          <Link
+                            href={{
+                              pathname: "/admin/staff/edit",
+                              query: { id: item._id }, // Add your parameters here
+                            }}
+                            className="px-4 py-2 mx-1 bg-main text-white rounded"
+                          >
+                            {/* Edit */}
+                            <svg
+                              width="24px"
+                              height="24px"
+                              viewBox="0 0 24 24"
+                              id="Layer_1"
+                              data-name="Layer 1"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              stroke-width="1.5px"
+                              stroke-miterlimit="10"
+                              stroke="#ffffff"
+                              stroke-opacity="1"
                             >
-                              {/* Edit */}
-                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.862 4.487L18.549 2.799C18.9007 2.44733 19.3777 2.24976 19.875 2.24976C20.3723 2.24976 20.8493 2.44733 21.201 2.799C21.5527 3.15068 21.7502 3.62766 21.7502 4.125C21.7502 4.62235 21.5527 5.09933 21.201 5.451L10.582 16.07C10.0533 16.5984 9.40137 16.9867 8.685 17.2L6 18L6.8 15.315C7.01328 14.5986 7.40163 13.9467 7.93 13.418L16.862 4.487ZM16.862 4.487L19.5 7.125M18 14V18.75C18 19.3467 17.7629 19.919 17.341 20.341C16.919 20.763 16.3467 21 15.75 21H5.25C4.65326 21 4.08097 20.763 3.65901 20.341C3.23705 19.919 3 19.3467 3 18.75V8.25C3 7.65327 3.23705 7.08097 3.65901 6.65901C4.08097 6.23706 4.65326 6 5.25 6H10" stroke="#fff" strokewidth="1.5" strokelinecap="round" strokelinejoin="round"></path></svg>
-                            </Link>
-                          </td>
-                        </tr>
-                      );
+                              <path
+                                class="cls-1"
+                                d="M7.23,20.59l-4.78,1,1-4.78L17.89,2.29A2.69,2.69,0,0,1,19.8,1.5h0a2.7,2.7,0,0,1,2.7,2.7h0a2.69,2.69,0,0,1-.79,1.91Z"
+                              />
+                              <line
+                                class="cls-1"
+                                x1="0.55"
+                                y1="22.5"
+                                x2="23.45"
+                                y2="22.5"
+                              />
+                              <line
+                                class="cls-1"
+                                x1="19.64"
+                                y1="8.18"
+                                x2="15.82"
+                                y2="4.36"
+                              />
+                            </svg>
+                          </Link>
+                        </td>
+                      </tr>
+                    );
                   })}
               </tbody>
             </table>

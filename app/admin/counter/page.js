@@ -84,11 +84,38 @@ export default function Dashboard() {
                           className="px-4 py-2 mx-1 bg-main text-white rounded"
                         >
                           {/* Edit */}
-                          <svg width="24px" height="24px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" 
-                        fill="none"
-                        stroke-width="1.5px" stroke-miterlimit="10" stroke="#ffffff" stroke-opacity="1"
-                        >
-                        <path  class="cls-1" d="M7.23,20.59l-4.78,1,1-4.78L17.89,2.29A2.69,2.69,0,0,1,19.8,1.5h0a2.7,2.7,0,0,1,2.7,2.7h0a2.69,2.69,0,0,1-.79,1.91Z"/><line class="cls-1" x1="0.55" y1="22.5" x2="23.45" y2="22.5"/><line class="cls-1" x1="19.64" y1="8.18" x2="15.82" y2="4.36"/></svg>
+                          <svg
+                            width="24px"
+                            height="24px"
+                            viewBox="0 0 24 24"
+                            id="Layer_1"
+                            data-name="Layer 1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            stroke-width="1.5px"
+                            stroke-miterlimit="10"
+                            stroke="#ffffff"
+                            stroke-opacity="1"
+                          >
+                            <path
+                              class="cls-1"
+                              d="M7.23,20.59l-4.78,1,1-4.78L17.89,2.29A2.69,2.69,0,0,1,19.8,1.5h0a2.7,2.7,0,0,1,2.7,2.7h0a2.69,2.69,0,0,1-.79,1.91Z"
+                            />
+                            <line
+                              class="cls-1"
+                              x1="0.55"
+                              y1="22.5"
+                              x2="23.45"
+                              y2="22.5"
+                            />
+                            <line
+                              class="cls-1"
+                              x1="19.64"
+                              y1="8.18"
+                              x2="15.82"
+                              y2="4.36"
+                            />
+                          </svg>
                         </Link>
                       </td>
                     </tr>
